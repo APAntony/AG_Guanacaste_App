@@ -15,6 +15,7 @@ import { AuthModule } from './auth/auth.module';
 import { ToastrModule } from 'ngx-toastr';
 import { UserModule } from 'src/user/user.module';
 import { MenuModule } from './menu/menu.module';
+import { TouristicAreasModule } from 'src/touristic-areas/touristic-areas.module';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { MenuModule } from './menu/menu.module';
     AuthModule,
     UserModule,
     MenuModule,
+    TouristicAreasModule,
     IonicModule.forRoot(),
     AppRoutingModule,    
     HttpClientModule,

@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthService } from './services/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from '../app-routing.module';
+import { AuthRoutingModule } from './auth-routing.module';
 
 
 
@@ -13,6 +14,7 @@ import { AppRoutingModule } from '../app-routing.module';
   ],
   imports: [
     CommonModule,
+    AuthRoutingModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,

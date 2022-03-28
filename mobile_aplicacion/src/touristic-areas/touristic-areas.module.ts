@@ -1,6 +1,10 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { IonicModule } from "@ionic/angular";
+import { Ng2SearchPipeModule } from "ng2-search-filter";
 import { ListedPlacesComponent } from "src/touristic-areas/listed-places/listed-places.component";
+import { TouristicAreasService } from "./services/touristic-areas.service";
 import { TouristicAreasRoutingModule } from "./touristic-areas-routing.module";
 
 
@@ -10,8 +14,11 @@ import { TouristicAreasRoutingModule } from "./touristic-areas-routing.module";
   ],
   imports: [
     CommonModule,
-    TouristicAreasRoutingModule
+    FormsModule,
+    IonicModule,
+    TouristicAreasRoutingModule,
+    Ng2SearchPipeModule
   ],
-  providers: []
+  providers: [TouristicAreasService]
 })
 export class TouristicAreasModule { }
