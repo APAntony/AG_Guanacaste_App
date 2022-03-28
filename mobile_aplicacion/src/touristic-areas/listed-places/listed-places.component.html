@@ -13,8 +13,8 @@
 
 <ion-content fullscreen>
   <ion-list class="lista">
-    <ion-item ngDefaultControl *ngFor="let item of lugares | filter:Filter">
-      <ion-label>{{item.name}}</ion-label>
+    <ion-item style="--ion-border-color: black" ngDefaultControl *ngFor="let item of lugares | filter:Filter">
+      <ion-label color="primary">{{item.name}}</ion-label>
     </ion-item>
   </ion-list>
   

@@ -4,7 +4,38 @@ input {
   padding: 12px 20px;
   box-sizing: border-box;
   border: 2px solid #ccc;
-  border-radius: 4px;
-  background-color: black;
+  border-radius: 5px;
+  background-color: #fff4ea;
   resize: none;
+  color: #fce0c7;
+}
+
+ion-title {
+  color: #f8caa0;
+}
+
+ion-item {
+  border-color: #fffcf8;
+}
+
+.item-highlight, .item-inner-highlight {
+  border-color: #fffcf8;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #fce0c7;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #fce0c7;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: #fce0c7;
+}
+
+.btn {
+  --background: #387b5c;
+  --border-radius: 10px;
 }

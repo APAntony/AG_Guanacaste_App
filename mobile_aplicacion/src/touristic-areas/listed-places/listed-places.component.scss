@@ -5,3 +5,7 @@ ion-toolbar {
 ion-searchbar {
   position: static;
 }
+
+.md body {
+  --ion-border-color: black;
+}
