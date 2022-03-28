@@ -1,0 +1,40 @@
+img {
+  border-radius: 30px;
+  z-index: -1;
+}
+
+div {
+  position:fixed;
+
+  text-align: center;
+  bottom: 20px;
+  z-index: 10;
+  color: white;
+}
+
+H2 {
+  color: white;
+  text-align: center;
+  //position:absolute;
+}
+
+ion-item {
+  position: relative;
+  padding-top: 10px;
+}
+
+ion-label.l1 {
+  position: absolute;
+  left: 45px;
+  top: 95px;
+}
+ion-label.l2 {
+  position: absolute;
+  left: 68px;
+  top: 95px;
+}
+ion-label.l3 {
+  position: absolute;
+  left: 40px;
+  top: 95px;
+}

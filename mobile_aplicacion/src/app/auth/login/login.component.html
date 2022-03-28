@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Log In</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form [formGroup]="userForm" (submit)="this.onSubmit(userForm.value)">
+    <ion-item lines="full">
+      <ion-label position="stacked">Usuario</ion-label>
+      <input formControlName="email" type="email" placeholder="Ingrese su usuario">
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="stacked">Contraseña</ion-label>
+      <input formControlName="password" type="password" placeholder="Ingrese su contraseña">
+    </ion-item>
+
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" color="danger" expand="block">Iniciar sesión</ion-button>
+        <a [routerLink]="['/register']" class="small-text">¿Aún no tienes cuenta?</a>
+      </ion-col>
+    </ion-row>
+  </form>
+
+</ion-content>
