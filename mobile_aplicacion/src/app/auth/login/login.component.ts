@@ -39,15 +39,15 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit(data) {
-    console.log(data);
+    //console.log(data);
     this.authService.login(data).subscribe(result => {
-      console.log(result.success);
+      //console.log(result.success);
       if (result.success) {
         this.presentToastWithOptions('Credenciales validas');
         this.userService.setUser(result.data);
         this.router.navigate(['/main-menu']);
       } else {
-        console.log(result.error.message);
+        //console.log(result.error.message);
         this.presentToastWithOptions(result.error.message);
         
         //TEMPORAL

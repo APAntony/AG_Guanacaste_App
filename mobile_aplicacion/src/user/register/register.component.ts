@@ -37,7 +37,7 @@ export class RegisterComponent implements OnInit {
         this.presentToastWithOptions('Usuario creado con exito!');
         this.router.navigate(['/']);
       } else {
-        console.log(result.error.message);
+        //console.log(result.error.message);
         this.presentToastWithOptions(result.error.message);
       }
     })
