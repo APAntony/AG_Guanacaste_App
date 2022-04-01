@@ -10,16 +10,16 @@
 <ion-content>
   <form [formGroup]="registerForm" (submit)="this.onSubmit(registerForm.value)">
     <ion-item lines="full">
-      <ion-label position="stacked">Nombre</ion-label>
-      <input formControlName="name" type="text" >
+      <ion-label color="light" position="stacked">Nombre</ion-label>
+      <input placeholder="Nombre" formControlName="name" type="text" >
     </ion-item>
     <ion-item lines="full">
-      <ion-label position="stacked">Correo electrónico</ion-label>
-      <input formControlName="email" type="text" >
+      <ion-label color="light" position="stacked">Correo electrónico</ion-label>
+      <input placeholder="Correo" formControlName="email" type="text" >
     </ion-item>
     <ion-item lines="full">
-      <ion-label position="stacked">Contraseña</ion-label>
-      <input formControlName="password" type="password" >
+      <ion-label color="light" position="stacked">Contraseña</ion-label>
+      <input placeholder="Contraseña" formControlName="password" type="password" >
     </ion-item>
     <ion-row>
       <ion-col>

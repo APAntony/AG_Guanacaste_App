@@ -13,4 +13,8 @@ export class UsersService {
   public create(body: any): Observable<any> {
     return this.http.post(`${URL}`, body);
   }
+
+  public update(id: number, body: any): Observable<any> {
+    return this.http.put(`${URL}/${id}`, body);
+  }
 }

@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button [routerLink]="['/main-menu']"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Edición de usuario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="updateForm" (submit)="this.onSubmit(updateForm.value)">
+    <ion-item lines="full">
+      <ion-label color="light" position="stacked">Nombre</ion-label>
+      <input placeholder="{{user.name}}" formControlName="name" type="text">
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label color="light" position="stacked">Correo electrónico</ion-label>
+      <input placeholder="{{user.email}}" formControlName="email" type="text"/>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label color="light" position="stacked">Nueva contraseña</ion-label>
+      <input placeholder="Nueva Contraseña" formControlName="password" type="password"/>
+    </ion-item>
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" color="danger" expand="block">Editar</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>
