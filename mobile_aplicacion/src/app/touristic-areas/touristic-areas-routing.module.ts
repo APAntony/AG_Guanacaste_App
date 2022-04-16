@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RegisterComponent } from './register/register.component';
+import { ListedPlacesComponent } from 'src/app/touristic-areas/listed-places/listed-places.component';
 
 const routes: Routes = [
-  { path: '', component: RegisterComponent }
+  { path: '', component: ListedPlacesComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class UsersRoutingModule { }
+export class TouristicAreasRoutingModule { }

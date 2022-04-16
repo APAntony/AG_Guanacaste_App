@@ -7,25 +7,27 @@ import { AuthGuard } from './core/guard/auth/auth.guard';
 const routes: Routes = [
   {
     path: '',
+    component: MainMenuComponent,
+    children: [
+      {
+        path:'listed-places',
+        loadChildren: () => import('./touristic-areas/touristic-areas.module').then(m => m.TouristicAreasModule)
+      }, {
+        path: 'login',
+        loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+      }
+    ]
+  },
+  /*{
+    path: 'login',
     component:LoginComponent,
     children: [
       {
         path: 'register',
-        loadChildren: () => import('../user/user.module').then(m => m.UserModule)
+        loadChildren: () => import('./user/user.module').then(m => m.UserModule)
       }  
     ]
-  },
-  {
-    path: 'main-menu',
-    component: MainMenuComponent,
-    canActivate: [AuthGuard],
-    children: [
-      {
-        path:'listed-places',
-        loadChildren: () => import('../touristic-areas/touristic-areas.module').then(m => m.TouristicAreasModule)
-      }
-    ]
-  },
+  },*/
   {
     path: '',
     redirectTo: '',
