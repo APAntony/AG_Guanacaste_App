@@ -31,22 +31,29 @@ export class ListedActivitiesComponent implements OnInit {
     let rowNum = 0; //counter to iterate over the rows in the grid
   
     for (let i = 0; i < this.actividades.length; i+=2) { //iterate images
+      //console.log(this.actividades[i])
+      //console.log(this.actividades[i+1])
+      //console.log("Pos: "+i.toString())
+      //console.log("Pos: "+(i+1).toString())
+      //console.log("\n")
   
       this.grid[rowNum] = Array(2); //declare two elements per row
   
-      if (this.actividades[i]) { //check file URI exists
+      if (this.actividades[i] !== undefined) { //check file URI exists
         this.grid[rowNum][0] = this.actividades[i] //insert image
       }
   
-      if (this.actividades[i+1]) { //repeat for the second image
+      if (this.actividades.length > (i+1)) {//this.actividades[i+1] !== undefined) { //repeat for the second image
+        //console.log("Murio?")
         this.grid[rowNum][1] = this.actividades[i+1]
+      }
+
+      if (this.actividades.length <= (i+1)) {
+        //console.log("Entro?")
+        break;
       }
   
       rowNum++; //go on to the next row
-    }
-
-    if (this.grid.length%2 == 1) {
-      this.grid[-1].pop();
     }
   }
 }

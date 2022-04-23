@@ -38,13 +38,14 @@ export class ListedPlacesComponent implements OnInit {
   ngOnInit() {}
 
   getTouristicAreas() {
-    /*this.touristicAreasService.list(this.objeto_lugares).subscribe(result => {
+    this.touristicAreasService.list(this.objeto_lugares).subscribe(result => {
       if (result.success) {
         this.lugares = result.data
         //console.log(this.lugares);
       }
-    });*/
+    });
 
+    /*
     let places: any;
     places = [];
 
@@ -89,6 +90,6 @@ export class ListedPlacesComponent implements OnInit {
       }
     );
 
-    this.lugares = places;
+    this.lugares = places;*/
   }
 }
