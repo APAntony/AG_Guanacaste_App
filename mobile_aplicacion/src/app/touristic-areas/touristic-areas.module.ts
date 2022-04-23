@@ -4,13 +4,15 @@ import { FormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
 import { Ng2SearchPipeModule } from "ng2-search-filter";
 import { ListedPlacesComponent } from "src/app/touristic-areas/listed-places/listed-places.component";
+import { PlaceDetailComponent } from "./place-detail/place-detail.component";
 import { TouristicAreasService } from "./services/touristic-areas.service";
 import { TouristicAreasRoutingModule } from "./touristic-areas-routing.module";
 
 
 @NgModule({
   declarations: [
-    ListedPlacesComponent
+    ListedPlacesComponent,
+    PlaceDetailComponent
   ],
   imports: [
     CommonModule,

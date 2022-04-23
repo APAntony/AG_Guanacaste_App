@@ -3,18 +3,15 @@
     <ion-buttons slot="start">
       <ion-back-button [routerLink]="['/main-menu']"> </ion-back-button>
     </ion-buttons>
+
     <ion-title>acguanacaste</ion-title>
   </ion-toolbar>
-  <!---<ion-toolbar>
-    <ion-title>Lugares para turistear</ion-title>
-    
-  </ion-toolbar>-->
 </ion-header>
 
-<ion-content fullscreen>
+<ion-content>
   <ion-searchbar placeholder="Buscar por nombre" [(ngModel)]="Filter" animated="true">
     <ion-button id="trigger-button" slot="end">
-      <ion-icon slot="end" name="options"></ion-icon>
+      <ion-icon slot="icon-only" name="options"></ion-icon>
     </ion-button>
   </ion-searchbar>
 
@@ -42,20 +39,18 @@
     </ng-template>
   </ion-popover>
 
-  <ion-list class="lista">
-    <ion-item style="--ion-border-color: black" ngDefaultControl 
-    *ngFor="let item of lugares | filter:Filter" detail>
-      <ion-label color="primary" [routerLink]="['/place-detail']" [state]="{item}">{{item.name}}</ion-label>
-    </ion-item>
-  </ion-list>
-  
-  <!-- fab placed to the bottom start -->
-  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-    <ion-fab-button [routerLink]="['/main-menu']">
-      <ion-icon name="home"></ion-icon>
-    </ion-fab-button>
-    <!---<ion-fab-list side="top">
-      <ion-fab-button ><ion-icon name="home"></ion-icon></ion-fab-button>
-    </ion-fab-list>-->
-  </ion-fab>
+
+
+  <ion-grid>
+    <ion-row *ngFor="let row of grid">
+      <ion-col width-50 *ngFor="let item of row">
+        <ion-card>
+          <ion-card-header>
+            <img [src]="item.img"> 
+            <ion-card-subtitle>{{item.name}}</ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

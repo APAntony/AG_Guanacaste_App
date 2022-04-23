@@ -5,9 +5,10 @@ import { UpdateUserComponent } from 'src/app/user/update-user/update-user.compon
 import { MainMenuComponent } from './main-menu/main-menu.component';
 
 const routes: Routes = [
-  { path: '', component: MainMenuComponent },
-  { path: 'listed-places', component:ListedPlacesComponent},
-  { path: 'update-user', component:UpdateUserComponent}
+  { 
+    path: '', 
+    component: MainMenuComponent
+  }
 ];
 
 @NgModule({

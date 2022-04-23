@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TouristicAreasService } from '../services/touristic-areas.service';
 
 @Component({
@@ -9,9 +9,9 @@ import { TouristicAreasService } from '../services/touristic-areas.service';
 })
 export class ListedPlacesComponent implements OnInit {
 
-  public obejto_lugares: any;
+  public objeto_lugares: any;
   public lugares: any;
-  public form = [
+  public form = [ //Para el filtro
     { val: 'Parques Nacionales', isChecked: false },
     { val: 'Refugios de vida silvestre', isChecked: false },
     { val: 'Estacion experimental', isChecked: false }
@@ -21,15 +21,16 @@ export class ListedPlacesComponent implements OnInit {
 
   constructor(
     private touristicAreasService: TouristicAreasService,
-    private activatedroute: ActivatedRoute
+    private activatedroute: ActivatedRoute,
+    private router: Router
   ) {
-    this.obejto_lugares = {}
-    this.lugares = []
+    this.objeto_lugares = {}
+    this.lugares = [] 
 
     this.activatedroute.queryParams.subscribe(params => {
-      this.obejto_lugares.page = params.page || 0;
-      this.obejto_lugares.size = params.size || 25;
-      this.obejto_lugares.filter = params.filter || '';
+      this.objeto_lugares.page = params.page || 0;
+      this.objeto_lugares.size = params.size || 25;
+      this.objeto_lugares.filter = params.filter || '';
       this.getTouristicAreas();
     })
   }
@@ -37,11 +38,57 @@ export class ListedPlacesComponent implements OnInit {
   ngOnInit() {}
 
   getTouristicAreas() {
-    this.touristicAreasService.list(this.obejto_lugares).subscribe(result => {
+    /*this.touristicAreasService.list(this.objeto_lugares).subscribe(result => {
       if (result.success) {
         this.lugares = result.data
         //console.log(this.lugares);
       }
-    });
+    });*/
+
+    let places: any;
+    places = [];
+
+    places.push(
+      {
+        id: 1,
+        name:"A",
+        categoria: "Parque",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      }
+    );
+    places.push(
+      {
+        id: 2,
+        name:"B",
+        categoria: "Parque",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      }
+    );
+    places.push(
+      {
+        id: 3,
+        name:"C",
+        categoria: "Volcan",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      }
+    );
+    places.push(
+      {
+        id: 4,
+        name:"D",
+        categoria: "Volcan",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      }
+    );
+    places.push(
+      {
+        id: 1,
+        name:"E",
+        categoria: "Parque",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      }
+    );
+
+    this.lugares = places;
   }
 }

@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button [routerLink]="['/places']"></ion-back-button>
+    </ion-buttons>
+    <ion-title>acguanacaste</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-item>
+    <img src="https://i.imgur.com/nrzHgwL.jpg"/>
+    <ion-label class="l1">
+      <H2>Lugares para turistear</H2>
+    </ion-label>
+  </ion-item>
+  <div>
+    <p>{{this.lugar.item.description}}</p>
+    <p>{{this.lugar.item.description}}</p>
+    <p>{{this.lugar.item.description}}</p>
+    <h4 style="padding-left: 10px;">Galería</h4>
+    <ion-slides>
+      <ion-slide>
+        <img src="https://i.imgur.com/nrzHgwL.jpg"/>
+      </ion-slide>
+      <ion-slide>
+        <img src="https://i.imgur.com/nrzHgwL.jpg"/>
+      </ion-slide>
+      <ion-slide>
+        <img src="https://i.imgur.com/nrzHgwL.jpg"/>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+  <ion-textarea [(ngModel)]="message" type="text" placeholder="Comentario .... " (keypress)="eventHandler($event.keyCode)"></ion-textarea>
+  <ion-button (click)="sendComment()">Send</ion-button>
+  
+  <div class="comment-box">
+    <ion-card *ngFor="let comment of comments">
+      <ion-card-content>
+            <strong>Antony</strong>
+            <p>
+              {{comment.message}}
+            </p>
+      </ion-card-content>
+     
+    </ion-card>
+  </div>
+
+  <!-- fab placed to the bottom start -->
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button [routerLink]="['/main-menu']">
+      <ion-icon name="home"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

@@ -9,12 +9,26 @@ import { ActionSheetController } from '@ionic/angular';
 })
 export class MainMenuComponent implements OnInit {
 
+  public dato: any;
+
   constructor(
     private router: Router,
-    private actionSheetController: ActionSheetController
-  ) { }
+    private actionSheetController: ActionSheetController,
+  ) { 
+    //this.dato = this.router.getCurrentNavigation().extras.state
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+    //this.dato = history.state;
+  }
+
+  goPlaces () {
+    this.router.navigate(['/places'])
+  }
+
+  goActivities() {
+    this.router.navigate(['/activities'])
+  }
 
   onClick() {
     this.presentActionSheet();
@@ -31,7 +45,7 @@ export class MainMenuComponent implements OnInit {
         id: 'login-button',
         handler: () => {
           this.router.navigate(['/login'])
-          console.log('Login clickeado');
+          //console.log('Login clickeado');
         }
       }, {
         text: 'Editar usuario',
@@ -39,14 +53,15 @@ export class MainMenuComponent implements OnInit {
         id: 'edit-button',
         handler: () => {
           this.router.navigate(['/update-user'])
-          console.log('Editar clickeado');
+          //console.log('Editar clickeado');
         }
       }, {
         text: 'Cancel',
         icon: 'close',
         role: 'cancel',
         handler: () => {
-          console.log('Cancelar clickeado');
+          //console.log("Dato: " + this.dato.name)
+          //console.log('Cancelar clickeado');
         }
       }]
     });
@@ -54,5 +69,5 @@ export class MainMenuComponent implements OnInit {
 
     const { role, data } = await actionSheet.onDidDismiss();
     console.log('onDidDismiss resolved with role and data', role, data);
-  }
+  } 
 }

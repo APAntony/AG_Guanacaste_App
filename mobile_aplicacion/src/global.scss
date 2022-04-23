@@ -10,6 +10,16 @@
  */
 
 /* Core CSS required for Ionic components to work properly */
+@font-face {
+  font-family: 'Lato';
+  src: url('./assets/fonts/Lato/Lato-Regular.ttf');
+}
+
+ion-searchbar ion-icon {
+  right: 16px !important;
+  left: auto !important;
+}
+
 @import "~@ionic/angular/css/core.css";
 
 /* Basic CSS for apps built with Ionic */
