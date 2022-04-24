@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+//import {DomSanitanizationService} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-place-detail',
@@ -11,6 +12,7 @@ export class PlaceDetailComponent implements OnInit {
   public lugar: any;
   comments = [];
   message: string;
+  images: any;
 
   constructor(
     private router: Router
@@ -18,6 +20,13 @@ export class PlaceDetailComponent implements OnInit {
 
   ngOnInit() {
     this.lugar = history.state;
+    //console.log(this.lugar);
+    /*this.images = [];
+
+    let i = 0;
+    for(i; i <this.lugar.item.touristic_area_images.length; i++) {
+      this.images.push(this.lugar.item.touristic_area_images[i]);
+    }*/
     //console.log(this.lugar.item.description);
   }
 

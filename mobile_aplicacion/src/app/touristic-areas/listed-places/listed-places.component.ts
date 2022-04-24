@@ -41,7 +41,7 @@ export class ListedPlacesComponent implements OnInit {
     this.touristicAreasService.list(this.objeto_lugares).subscribe(result => {
       if (result.success) {
         this.lugares = result.data
-        //console.log(this.lugares);
+        console.log(this.lugares[0]);
       }
     });
 

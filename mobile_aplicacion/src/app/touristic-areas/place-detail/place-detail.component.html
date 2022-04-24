@@ -14,10 +14,9 @@
       <H2>Lugares para turistear</H2>
     </ion-label>
   </ion-item>
+  <div [innerHTML]="this.lugar.item.description">
+  </div>
   <div>
-    <p>{{this.lugar.item.description}}</p>
-    <p>{{this.lugar.item.description}}</p>
-    <p>{{this.lugar.item.description}}</p>
     <h4 style="padding-left: 10px;">Galería</h4>
     <ion-slides>
       <ion-slide>
