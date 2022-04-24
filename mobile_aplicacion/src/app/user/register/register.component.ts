@@ -34,22 +34,21 @@ export class RegisterComponent implements OnInit {
 
     this.usersService.create(data).subscribe(result => {
       if (result.success) {
-        this.presentToastWithOptions('Usuario creado con exito!');
+        this.presentToast('Usuario creado con exito!');
         this.router.navigate(['/']);
       } else {
         //console.log(result.error.message);
-        this.presentToastWithOptions(result.error.message);
+        this.presentToast(result.error.message);
       }
     })
   }
 
-  async presentToastWithOptions(msg: string) {
+  async presentToast(msg: string) {
     const toast = await this.toastController.create({
-      header: 'Aviso',
       message: msg,
-      icon: 'information-circle',
-      position: 'bottom',
+      duration: 2000
     });
-    await toast.present();
+
+    toast.present();
   }
 }

@@ -40,6 +40,22 @@ export class UserService {
     this.user.next(data.user);
   }
 
+  public getUserId() {
+    if (!this.user.value) {
+      return;
+    }
+
+    return this.user.value.id;
+  }
+
+  public getUserName() {
+    if (!this.user.value) {
+      return;
+    }
+
+    return this.user.value.name;
+  }
+
   public verifyToken() {
 
     if (!this.user.value) {

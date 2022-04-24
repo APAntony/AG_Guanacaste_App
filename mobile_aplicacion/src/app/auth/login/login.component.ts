@@ -45,27 +45,28 @@ export class LoginComponent implements OnInit {
     this.authService.login(data).subscribe(result => {
       //console.log(result.success);
       if (result.success) {
-        this.presentToastWithOptions('Credenciales validas');
+        this.presentToast('Credenciales validas');
         this.userService.setUser(result.data);
+        
+        //console.log(this.userService.getUserId());
+        
         this.router.navigate(['/main-menu']);
       } else {
         //console.log(result.error.message);
-        this.presentToastWithOptions(result.error.message);
+        this.presentToast(result.error.message);
         
         //TEMPORAL
-        this.router.navigate(['/']);
+        //this.router.navigate(['/']);
       }
     })
   }
 
-  async presentToastWithOptions(msg: string) {
+  async presentToast(msg: string) {
     const toast = await this.toastController.create({
-      header: 'Aviso',
       message: msg,
-      icon: 'information-circle',
-      position: 'bottom',
+      duration: 2000
     });
-    await toast.present();
-  }
 
+    toast.present();
+  }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, ToastController } from '@ionic/angular';
+import { UserService } from 'src/app/core/services/user/user.service';
 
 @Component({
   selector: 'app-main-menu',
@@ -14,6 +15,8 @@ export class MainMenuComponent implements OnInit {
   constructor(
     private router: Router,
     private actionSheetController: ActionSheetController,
+    private toastController: ToastController,
+    private userService: UserService
   ) { 
     //this.dato = this.router.getCurrentNavigation().extras.state
   }
@@ -52,8 +55,11 @@ export class MainMenuComponent implements OnInit {
         icon: 'pencil',
         id: 'edit-button',
         handler: () => {
-          this.router.navigate(['/update-user'])
-          //console.log('Editar clickeado');
+          if (this.userService.isLogin() == false) {
+            this.presentToast("No hay un usuario iniciado");
+          } else {
+            this.router.navigate(['/update-user'])
+          }
         }
       }, {
         text: 'Cancel',
@@ -69,5 +75,14 @@ export class MainMenuComponent implements OnInit {
 
     const { role, data } = await actionSheet.onDidDismiss();
     console.log('onDidDismiss resolved with role and data', role, data);
-  } 
+  }
+
+  async presentToast(msg: string) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 2000
+    });
+
+    toast.present();
+  }
 }

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ToastController } from '@ionic/angular';
+import { UserService } from 'src/app/core/services/user/user.service';
+import { CommentService } from '../services/comment.service';
 //import {DomSanitanizationService} from '@angular/platform-browser';
 
 @Component({
@@ -9,25 +12,50 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class PlaceDetailComponent implements OnInit {
 
+  public queryComments: any;
+  public primerImg: any;
   public lugar: any;
+  tpmComments = [];
   comments = [];
   message: string;
   images: any;
 
   constructor(
-    private router: Router
-  ) {}
+    private router: Router,
+    private user: UserService,
+    private activatedroute: ActivatedRoute,
+    private commentService: CommentService,
+    private toastController: ToastController
+  ) {
+    this.images = [];
+    this.queryComments = {}
+
+  }
 
   ngOnInit() {
-    this.lugar = history.state;
-    //console.log(this.lugar);
-    /*this.images = [];
+    this.lugar = history.state.result.data;
 
+    this.activatedroute.queryParams.subscribe(params => {
+      this.queryComments.page = params.page || 0;
+      this.queryComments.size = params.size || 5;
+      this.queryComments.filter = params.filter || '';
+      this.getComments();
+    })
+
+    console.log("Comentarios")
+    console.log(this.comments)
+    //console.log(this.lugar.touristic_area_images)
+  }
+
+  
+  ionViewWillEnter() {
     let i = 0;
-    for(i; i <this.lugar.item.touristic_area_images.length; i++) {
-      this.images.push(this.lugar.item.touristic_area_images[i]);
-    }*/
-    //console.log(this.lugar.item.description);
+
+    for(i; i <this.lugar.touristic_area_images.length; i++) {
+      this.images.push(this.lugar.touristic_area_images[i]);
+    }
+
+    this.primerImg = this.images[0].url;
   }
 
   backHome() {
@@ -35,6 +63,11 @@ export class PlaceDetailComponent implements OnInit {
   }
 
   sendComment() {
+    if (!this.user.isLogin()) {
+      this.presentToast();
+      return;
+    }
+
     console.log("["+this.message+"]");
     if (this.message == undefined) {
       return;
@@ -42,12 +75,10 @@ export class PlaceDetailComponent implements OnInit {
     
     if (!this.tieneTexto(this.message)) {
       return;
-    } 
-    
-    else {
-      let d = new Date();
-      this.comments.push({message: this.message});
     }
+
+    this.createComment({"comment": this.message, "id_user": this.user.getUserId()});
+    this.comments.push({message: this.message, usuario: this.user.getUserName()});
   }
 
   eventHandler(keyCode) {
@@ -71,5 +102,43 @@ export class PlaceDetailComponent implements OnInit {
     }
 
     return false;
+  }
+
+  getComments() {
+    this.commentService.list(this.lugar.id, this.queryComments).subscribe(result => {
+      this.tpmComments = result.data;
+      this.buildComments();
+    });
+  }
+
+  buildComments() {
+    let i = 0;
+    let nombre: string;
+    for (i; i < this.tpmComments.length; i++) {
+      
+      this.comments.push({
+        message: this.tpmComments[i].comment,
+        usuario: this.tpmComments[i].user.name
+      })
+    }
+  }
+
+  createComment(body: any) {
+    this.commentService.create(this.lugar.id, body).subscribe(result => {
+      if (result.success) {
+        console.log("Exito")
+      } else {
+        console.log("Fracaso")
+      }
+    })
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: "Debes tener una sesión iniciada para comentar",
+      duration: 2000
+    });
+
+    toast.present();
   }
 }

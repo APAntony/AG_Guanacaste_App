@@ -17,4 +17,8 @@ export class UsersService {
   public update(id: number, body: any): Observable<any> {
     return this.http.put(`${URL}/${id}`, body);
   }
+
+  public find(id:number): Observable<any> {
+    return this.http.get(`${URL}/${id}`);
+  }
 }

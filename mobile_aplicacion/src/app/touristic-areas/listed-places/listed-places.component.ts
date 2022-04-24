@@ -37,6 +37,16 @@ export class ListedPlacesComponent implements OnInit {
 
   ngOnInit() {}
 
+  sendTouristicArea(id: number) {
+    this.touristicAreasService.find(id.toString()).subscribe(result =>{
+      if (result.success) {
+        history.pushState({data: result}, '', '');
+        this.router.navigate(['/place-detail'], {state:{result}});
+        return result;
+      } 
+    });
+  }
+
   getTouristicAreas() {
     this.touristicAreasService.list(this.objeto_lugares).subscribe(result => {
       if (result.success) {

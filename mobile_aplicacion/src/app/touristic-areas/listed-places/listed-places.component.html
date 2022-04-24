@@ -45,7 +45,8 @@
   <ion-list class="lista">
     <ion-item style="--ion-border-color: black" ngDefaultControl 
     *ngFor="let item of lugares | filter:Filter" detail>
-      <ion-label color="primary" [routerLink]="['/place-detail']" [state]="{item}">{{item.name}}</ion-label>
+      <!---<ion-label color="primary" [routerLink]="['/place-detail']" [state]="{id: item.id}">{{item.name}}</ion-label>-->
+      <ion-label color="primary" (click)="sendTouristicArea(item.id)">{{item.name}}</ion-label>
     </ion-item>
   </ion-list>
   

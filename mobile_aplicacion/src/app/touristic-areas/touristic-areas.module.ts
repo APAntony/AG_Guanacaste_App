@@ -5,6 +5,7 @@ import { IonicModule } from "@ionic/angular";
 import { Ng2SearchPipeModule } from "ng2-search-filter";
 import { ListedPlacesComponent } from "src/app/touristic-areas/listed-places/listed-places.component";
 import { PlaceDetailComponent } from "./place-detail/place-detail.component";
+import { CommentService } from "./services/comment.service";
 import { TouristicAreasService } from "./services/touristic-areas.service";
 import { TouristicAreasRoutingModule } from "./touristic-areas-routing.module";
 
@@ -21,6 +22,6 @@ import { TouristicAreasRoutingModule } from "./touristic-areas-routing.module";
     TouristicAreasRoutingModule,
     Ng2SearchPipeModule
   ],
-  providers: [TouristicAreasService]
+  providers: [TouristicAreasService, CommentService]
 })
 export class TouristicAreasModule { }

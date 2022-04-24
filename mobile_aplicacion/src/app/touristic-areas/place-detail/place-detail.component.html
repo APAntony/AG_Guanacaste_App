@@ -9,25 +9,24 @@
 
 <ion-content fullscreen>
   <ion-item>
-    <img src="https://i.imgur.com/nrzHgwL.jpg"/>
-    <ion-label class="l1">
-      <H2>Lugares para turistear</H2>
-    </ion-label>
+    <img src="primerImg"/>
   </ion-item>
-  <div [innerHTML]="this.lugar.item.description">
+  <h2>{{lugar.name}}</h2>
+  <div [innerHTML]="this.lugar.description">
   </div>
   <div>
     <h4 style="padding-left: 10px;">Galería</h4>
     <ion-slides>
+      <ion-slide *ngFor="let img of images">
+        <img [src]="img.url"/>
+      </ion-slide>
+      <!--
       <ion-slide>
         <img src="https://i.imgur.com/nrzHgwL.jpg"/>
       </ion-slide>
       <ion-slide>
         <img src="https://i.imgur.com/nrzHgwL.jpg"/>
-      </ion-slide>
-      <ion-slide>
-        <img src="https://i.imgur.com/nrzHgwL.jpg"/>
-      </ion-slide>
+      </ion-slide>-->
     </ion-slides>
   </div>
 
@@ -37,7 +36,7 @@
   <div class="comment-box">
     <ion-card *ngFor="let comment of comments">
       <ion-card-content>
-            <strong>Antony</strong>
+            <strong>{{comment.usuario}}</strong>
             <p>
               {{comment.message}}
             </p>
