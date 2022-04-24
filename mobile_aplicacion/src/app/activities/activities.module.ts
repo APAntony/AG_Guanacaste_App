@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ActivitiesRoutingModule } from './activities-routing.module';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { ActivitiesService } from './services/activities.service';
+import { CommentService } from './services/comment.service';
 
 
 
@@ -20,6 +22,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     IonicModule,
     ActivitiesRoutingModule,
     Ng2SearchPipeModule
-  ]
+  ],
+  providers: [ActivitiesService, CommentService]
 })
 export class ActivitiesModule { }

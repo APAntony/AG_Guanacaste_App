@@ -44,9 +44,9 @@
   <ion-grid>
     <ion-row *ngFor="let row of grid">
       <ion-col width-50 *ngFor="let item of row">
-        <ion-card>
+        <ion-card button (click)="sendActivity(item)">
           <ion-card-header>
-            <img [src]="item.img"> 
+            <!---<img [src]="item.url"> -->
             <ion-card-subtitle>{{item.name}}</ion-card-subtitle>
           </ion-card-header>
         </ion-card>

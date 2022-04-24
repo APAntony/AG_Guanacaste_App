@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ActivitiesService } from '../services/activities.service';
 
 @Component({
   selector: 'app-listed-activities',
@@ -7,35 +9,48 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListedActivitiesComponent implements OnInit {
 
+  public queryActividades: any;
   actividades: any;  
   grid: Array<Array<string>>; //array of arrays
   
-  constructor() {
+  constructor(
+    private activitiesService: ActivitiesService,
+    private activatedroute: ActivatedRoute,
+    private router: Router
+  ) {
+    this.queryActividades = {}
+    this.actividades = []
+    this.grid = [];
+
+    this.activatedroute.queryParams.subscribe(params => {
+      this.queryActividades.page = params.page || 0;
+      this.queryActividades.size = params.size || 5;
+      this.queryActividades.filter = params.filter || '';
+      this.getActividades();
+    })
+
+    /*
     this.actividades = [
-      {img: "../../../assets/canopy.jpg", name: "imagen 1"},
-      {img: "../../../assets/canopy.jpg", name: "imagen 2"},
-      {img: "../../../assets/canopy.jpg", name: "imagen 3"},
-      {img: "../../../assets/canopy.jpg", name: "imagen 4"},
-      {img: "../../../assets/canopy.jpg", name: "imagen 5"},
-      {img: "../../../assets/canopy.jpg", name: "imagen 6"},
-      {img: "../../../assets/canopy.jpg", name: "imagen 7"}
-    ]
+      {url: "../../../assets/canopy.jpg", name: "imagen 1"},
+      {url: "../../../assets/canopy.jpg", name: "imagen 2"},
+      {url: "../../../assets/canopy.jpg", name: "imagen 3"},
+      {url: "../../../assets/canopy.jpg", name: "imagen 4"},
+      {url: "../../../assets/canopy.jpg", name: "imagen 5"},
+      {url: "../../../assets/canopy.jpg", name: "imagen 6"},
+      {url: "../../../assets/canopy.jpg", name: "imagen 7"}
+    ]*/
 
     this.grid = Array(Math.ceil(this.actividades.length/2)); //MATHS!
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    //
+  }
 
-  ionViewWillEnter() {
-
+  ionViewDidEnter() {
     let rowNum = 0; //counter to iterate over the rows in the grid
   
     for (let i = 0; i < this.actividades.length; i+=2) { //iterate images
-      //console.log(this.actividades[i])
-      //console.log(this.actividades[i+1])
-      //console.log("Pos: "+i.toString())
-      //console.log("Pos: "+(i+1).toString())
-      //console.log("\n")
   
       this.grid[rowNum] = Array(2); //declare two elements per row
   
@@ -43,17 +58,39 @@ export class ListedActivitiesComponent implements OnInit {
         this.grid[rowNum][0] = this.actividades[i] //insert image
       }
   
-      if (this.actividades.length > (i+1)) {//this.actividades[i+1] !== undefined) { //repeat for the second image
-        //console.log("Murio?")
+      if (this.actividades.length > (i+1)) { //repeat for the second image
         this.grid[rowNum][1] = this.actividades[i+1]
       }
 
       if (this.actividades.length <= (i+1)) {
-        //console.log("Entro?")
         break;
       }
   
       rowNum++; //go on to the next row
     }
+    console.log("corri :v")
+  }
+
+  getActividades() {
+    this.activitiesService.list(this.queryActividades).subscribe(result => {
+      if (result.success) {
+        this.actividades = result.data;
+        //console.log(this.tmpActivities);
+        //this.getImages()
+      }
+    });
+  }
+
+  sendActivity(item: any) {
+    history.pushState({data: item}, '', '');
+    this.router.navigate(['/activity-detail'], {state:{item}});
+    /*
+    this.activitiesService.find(id).subscribe(result => {
+      if (result.success) {
+        history.pushState({data: result}, '', '');
+        this.router.navigate(['/activity-detail'], {state:{result}});
+        return result;
+      }
+    });*/
   }
 }
