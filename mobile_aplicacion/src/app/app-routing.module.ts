@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { MainMenuComponent } from './menu/main-menu/main-menu.component';
+import { MainMenuComponent } from './auth/main-menu/main-menu.component';
 
 const routes: Routes = [
   {

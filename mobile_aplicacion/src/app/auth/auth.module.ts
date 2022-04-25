@@ -5,7 +5,7 @@ import { AuthService } from './services/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from '../app-routing.module';
 import { AuthRoutingModule } from './auth-routing.module';
-import { MainMenuComponent } from '../menu/main-menu/main-menu.component';
+import { MainMenuComponent } from './main-menu/main-menu.component';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 
