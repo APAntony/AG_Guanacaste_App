@@ -39,18 +39,22 @@
     </ng-template>
   </ion-popover>
 
-
-
   <ion-grid>
     <ion-row *ngFor="let row of grid">
-      <ion-col width-50 *ngFor="let item of row">
-        <ion-card>
+      <ion-col width-50 *ngFor="let item of row | filter:Filter">
+        <ion-card button (click)="sendActivity(item)">
           <ion-card-header>
-            <img [src]="item.img"> 
+            <!---<img [src]="item.url"> -->
             <ion-card-subtitle>{{item.name}}</ion-card-subtitle>
           </ion-card-header>
         </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button [routerLink]="['/main-menu']">
+      <ion-icon name="home"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
