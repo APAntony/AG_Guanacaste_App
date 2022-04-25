@@ -47,8 +47,24 @@ export class MainMenuComponent implements OnInit {
         icon: 'person-circle',
         id: 'login-button',
         handler: () => {
-          this.router.navigate(['/login']);
+          if (this.userService.isLogin()) {
+            this.presentToast('Ya hay un usuario iniciado');
+          } else {
+            this.router.navigate(['/login']);
+          }
+          
           //console.log('Login clickeado');
+        }
+      },{
+        text: 'Cerrar sesión',
+        icon: 'log-out',
+        id: 'log-out-button',
+        handler: () => {
+          if (this.userService.isLogin() === false) {
+            this.presentToast('No hay un usuario iniciado');
+          } else {
+            this.userService.logout();
+          }
         }
       }, {
         text: 'Editar usuario',

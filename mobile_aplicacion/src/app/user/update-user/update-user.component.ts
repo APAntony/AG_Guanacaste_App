@@ -43,14 +43,14 @@ export class UpdateUserComponent implements OnInit {
     if (data.password !== "") {
       this.usersService.update(this.user.id, data).subscribe(result => {
         if (result.success) {
-          this.presentToastWithOptions('Usuario editado con exito!');
+          this.presentToast('Usuario editado con exito!');
           this.router.navigate(['/main-menu'])
         } else {
-          this.presentToastWithOptions(result.error.message);
+          this.presentToast(result.error.message);
         }
       })
     } else {
-      this.presentToastWithOptions('Tiene que ingresar su contraseña o una nueva');
+      this.presentToast('Tiene que ingresar su contraseña o una nueva');
     }
   }
 
@@ -64,13 +64,12 @@ export class UpdateUserComponent implements OnInit {
     return data;
   }
 
-  async presentToastWithOptions(msg: string) {
+  async presentToast(msg: string) {
     const toast = await this.toastController.create({
-      header: 'Aviso',
       message: msg,
-      icon: 'information-circle',
-      position: 'bottom',
+      duration: 2000
     });
-    await toast.present();
+
+    toast.present();
   }
 }
