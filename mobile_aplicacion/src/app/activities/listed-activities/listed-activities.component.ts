@@ -12,6 +12,8 @@ export class ListedActivitiesComponent implements OnInit {
   public queryActividades: any;
   actividades: any;  
   grid: Array<Array<string>>; //array of arrays
+
+  Filter: string;
   
   constructor(
     private activitiesService: ActivitiesService,
@@ -39,12 +41,10 @@ export class ListedActivitiesComponent implements OnInit {
       {url: "../../../assets/canopy.jpg", name: "imagen 6"},
       {url: "../../../assets/canopy.jpg", name: "imagen 7"}
     ]*/
-
-    this.grid = Array(Math.ceil(this.actividades.length/2)); //MATHS!
   }
 
   ngOnInit() {
-    //
+    this.grid = Array(Math.ceil(this.actividades.length/2)); //MATHS!
   }
 
   ionViewDidEnter() {
@@ -68,7 +68,8 @@ export class ListedActivitiesComponent implements OnInit {
   
       rowNum++; //go on to the next row
     }
-    console.log("corri :v")
+    console.log("Actividades")
+    console.log(this.actividades)
   }
 
   getActividades() {

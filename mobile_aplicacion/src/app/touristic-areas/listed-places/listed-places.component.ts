@@ -11,6 +11,7 @@ export class ListedPlacesComponent implements OnInit {
 
   public objeto_lugares: any;
   public lugares: any;
+  public allPlaces: any;
   public form = [ //Para el filtro
     { val: 'Parques Nacionales', isChecked: false },
     { val: 'Refugios de vida silvestre', isChecked: false },
@@ -25,7 +26,8 @@ export class ListedPlacesComponent implements OnInit {
     private router: Router
   ) {
     this.objeto_lugares = {}
-    this.lugares = [] 
+    this.lugares = []
+    this.allPlaces = []
 
     this.activatedroute.queryParams.subscribe(params => {
       this.objeto_lugares.page = params.page || 0;
@@ -51,55 +53,30 @@ export class ListedPlacesComponent implements OnInit {
     this.touristicAreasService.list(this.objeto_lugares).subscribe(result => {
       if (result.success) {
         this.lugares = result.data
+        this.allPlaces = result.data
         console.log(this.lugares[0]);
       }
     });
+  }
 
-    /*
-    let places: any;
-    places = [];
+  onFilter(event) : void {
+    //console.log("radioSelect", event);
+    
+    this.lugares = this.allPlaces;
 
-    places.push(
-      {
-        id: 1,
-        name:"A",
-        categoria: "Parque",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-      }
-    );
-    places.push(
-      {
-        id: 2,
-        name:"B",
-        categoria: "Parque",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-      }
-    );
-    places.push(
-      {
-        id: 3,
-        name:"C",
-        categoria: "Volcan",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-      }
-    );
-    places.push(
-      {
-        id: 4,
-        name:"D",
-        categoria: "Volcan",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-      }
-    );
-    places.push(
-      {
-        id: 1,
-        name:"E",
-        categoria: "Parque",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-      }
-    );
+    let category: string = event.detail.value;
 
-    this.lugares = places;*/
+    if (category == undefined) {
+      return;
+    }
+    
+    // Only filter the technologies array IF the selection is NOT equal to value of all
+    if (category.trim() !== 'all') {
+      this.lugares = this.lugares.filter((item) => {
+        return item.type_tourist_area.name.toLowerCase().indexOf(category.toLowerCase()) > -1;
+      });
+    }
+    
+    //console.log(this.lugares.length)
   }
 }
