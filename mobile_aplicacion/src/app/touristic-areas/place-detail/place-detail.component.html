@@ -9,7 +9,7 @@
 
 <ion-content fullscreen>
   <ion-item>
-    <img src="primerImg"/>
+    <img [src]="primerImg"/>
   </ion-item>
   <h2>{{lugar.name}}</h2>
   <div id="description" [innerHTML]="this.lugar.description">
@@ -30,6 +30,7 @@
     </ion-slides>
   </div>
 
+  <h2>Comentarios</h2>
   <ion-textarea [(ngModel)]="message" type="text" placeholder="Comentario .... " (keypress)="eventHandler($event.keyCode)"></ion-textarea>
   <ion-button (click)="sendComment()">Send</ion-button>
   

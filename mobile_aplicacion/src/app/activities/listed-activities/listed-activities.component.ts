@@ -49,6 +49,7 @@ export class ListedActivitiesComponent implements OnInit {
     this.grid = Array(Math.ceil(this.actividades.length/2)); //MATHS!
   }
 
+  
   ionViewDidEnter() {
     let rowNum = 0; //counter to iterate over the rows in the grid
   

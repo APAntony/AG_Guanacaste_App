@@ -60,7 +60,7 @@
       <ion-col width-50 *ngFor="let item of row | filter:Filter">
         <ion-card button (click)="sendActivity(item)">
           <ion-card-header>
-            <!---<img [src]="item.url"> -->
+            <img [src]="item.activity_images[0].url">
             <ion-card-subtitle>{{item.name}}</ion-card-subtitle>
           </ion-card-header>
         </ion-card>
