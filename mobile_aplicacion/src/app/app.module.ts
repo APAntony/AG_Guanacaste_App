@@ -12,7 +12,6 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from 'src/app/user/user.module';
-import { MenuModule } from './menu/menu.module';
 import { TouristicAreasModule } from 'src/app/touristic-areas/touristic-areas.module';
 import { ActivitiesModule } from './activities/activities.module';
 
@@ -25,11 +24,10 @@ import { ActivitiesModule } from './activities/activities.module';
     BrowserModule,
     AuthModule,
     UserModule,
-    MenuModule,
     TouristicAreasModule,
     ActivitiesModule,
     IonicModule.forRoot(),
-    AppRoutingModule,    
+    AppRoutingModule,
     HttpClientModule,
     RouterModule
     /*ToastrModule.forRoot({

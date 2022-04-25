@@ -17,7 +17,7 @@ export class MainMenuComponent implements OnInit {
     private actionSheetController: ActionSheetController,
     private toastController: ToastController,
     private userService: UserService
-  ) { 
+  ) {
     //this.dato = this.router.getCurrentNavigation().extras.state
   }
 
@@ -25,12 +25,12 @@ export class MainMenuComponent implements OnInit {
     //this.dato = history.state;
   }
 
-  goPlaces () {
-    this.router.navigate(['/places'])
+  goPlaces() {
+    this.router.navigate(['/places']);
   }
 
   goActivities() {
-    this.router.navigate(['/activities'])
+    this.router.navigate(['/activities']);
   }
 
   onClick() {
@@ -47,7 +47,7 @@ export class MainMenuComponent implements OnInit {
         icon: 'person-circle',
         id: 'login-button',
         handler: () => {
-          this.router.navigate(['/login'])
+          this.router.navigate(['/login']);
           //console.log('Login clickeado');
         }
       }, {
@@ -55,10 +55,10 @@ export class MainMenuComponent implements OnInit {
         icon: 'pencil',
         id: 'edit-button',
         handler: () => {
-          if (this.userService.isLogin() == false) {
-            this.presentToast("No hay un usuario iniciado");
+          if (this.userService.isLogin() === false) {
+            this.presentToast('No hay un usuario iniciado');
           } else {
-            this.router.navigate(['/update-user'])
+            this.router.navigate(['/update-user']);
           }
         }
       }, {
