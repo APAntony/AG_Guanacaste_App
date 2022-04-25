@@ -5,22 +5,26 @@ import { AuthService } from './services/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from '../app-routing.module';
 import { AuthRoutingModule } from './auth-routing.module';
-
+import { MainMenuComponent } from '../menu/main-menu/main-menu.component';
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    MainMenuComponent
   ],
   imports: [
     CommonModule,
+    IonicModule,
     AuthRoutingModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
   ],
   exports: [
-    LoginComponent
+    LoginComponent,
+    MainMenuComponent
   ],
   providers: [AuthService]
 })

@@ -11,7 +11,9 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "run-android": "ionic capacitor run android",
-    "build-android": "ionic capacitor build android"
+    "build-android": "ionic capacitor build android",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "private": true,
   "dependencies": {
@@ -47,6 +49,7 @@
     "@angular/compiler-cli": "~13.2.2",
     "@angular/language-service": "~13.2.2",
     "@capacitor/cli": "3.4.3",
+    "@cypress/schematic": "^1.6.0",
     "@ionic/angular-toolkit": "^6.0.0",
     "@ionic/lab": "3.2.11",
     "@types/jasmine": "~3.6.0",
@@ -68,7 +71,8 @@
     "karma-jasmine-html-reporter": "^1.5.0",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
-    "typescript": "~4.4.4"
+    "typescript": "~4.4.4",
+    "cypress": "latest"
   },
   "description": "An Ionic project"
 }
