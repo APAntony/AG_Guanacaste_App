@@ -8,6 +8,9 @@ import { ActivitiesRoutingModule } from './activities-routing.module';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ActivitiesService } from './services/activities.service';
 import { CommentService } from './services/comment.service';
+import { AccessibilitiesService } from './services/accessibilities.service';
+import { ActivityTypesService } from './services/activity-types.service';
+import { DifficultiesService } from './services/difficulties.service';
 
 
 
@@ -23,6 +26,12 @@ import { CommentService } from './services/comment.service';
     ActivitiesRoutingModule,
     Ng2SearchPipeModule
   ],
-  providers: [ActivitiesService, CommentService]
+  providers: [
+    ActivitiesService,
+    CommentService,
+    AccessibilitiesService,
+    ActivityTypesService,
+    DifficultiesService
+  ]
 })
 export class ActivitiesModule { }

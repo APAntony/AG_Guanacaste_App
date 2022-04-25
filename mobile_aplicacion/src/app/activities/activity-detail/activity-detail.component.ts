@@ -34,7 +34,7 @@ export class ActivityDetailComponent implements OnInit {
     this.actividad = history.state.item;
 
     console.log("Actividad")
-    console.log(this.actividad)
+    console.log(this.actividad);
 
     this.activatedroute.queryParams.subscribe(params => {
       this.queryComments.page = params.page || 0;

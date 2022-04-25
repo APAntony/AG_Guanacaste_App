@@ -15,26 +15,42 @@
     </ion-button>
   </ion-searchbar>
 
-  <ion-popover trigger="trigger-button">
+  <ion-popover trigger="trigger-button"> 
     <ng-template>
       <ion-content>
+        <ion-label>Filtros</ion-label>
+        
         <ion-list>
-          <ion-radio-group value="Categorias">
+          <ion-radio-group (ionChange)="this.onFilter($event)">
             <ion-list-header>
-              <ion-label>Categorias</ion-label>
+              <ion-label>Nivel de dificultad</ion-label>
             </ion-list-header>
             
-            <ion-item>
-              <ion-label>Parque</ion-label>
-              <ion-radio slot="start" value="Parque"></ion-radio>
+            <ion-item *ngFor="let diff of difficulties" >
+              <ion-label>{{diff.name}}</ion-label>
+              <ion-radio slot="start" name="{{diff.name}}" value="{{diff.name}},diff"></ion-radio>
             </ion-item>
-
-            <ion-item>
-              <ion-label>Volcan</ion-label>
-              <ion-radio slot="start" value="Volcan"></ion-radio>
+            
+            <ion-list-header>
+              <ion-label>Tipo de actividad</ion-label>
+            </ion-list-header>
+            
+            <ion-item *ngFor="let type of activity_types">
+              <ion-label>{{type.name}}</ion-label>
+              <ion-radio slot="start" name="{{type.name}}" value="{{type.name}},tipo"></ion-radio>
+            </ion-item>
+          
+            <ion-list-header>
+              <ion-label>Accesibilidad</ion-label>
+            </ion-list-header>
+            
+            <ion-item *ngFor="let access of accessibilities">
+              <ion-label>{{access.name}}</ion-label>
+              <ion-radio slot="start" name="{{access.name}}" value="{{access.name}},acc"></ion-radio>
             </ion-item>
           </ion-radio-group>
         </ion-list>
+
       </ion-content>
     </ng-template>
   </ion-popover>
