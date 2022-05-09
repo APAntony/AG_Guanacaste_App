@@ -14,7 +14,7 @@ describe('Touristic Area Module', () => {
     });
   });
 
-  /*it('List Touristic Areas', () => {
+  it('List Touristic Areas', () => {
     const filter = '';
     let count = 0;
     cy.intercept({
@@ -34,9 +34,9 @@ describe('Touristic Area Module', () => {
       console.log(count);
       cy.get('ion-list').get('ion-item').should('have.length', count);
     });
-  });*/
+  });
 
-  it('Applay filter', () => {
+  it('Apply filter', () => {
     const filter = '';
     let count = 0;
     cy.intercept({
@@ -56,13 +56,13 @@ describe('Touristic Area Module', () => {
       cy.get('#trigger-button').click();
       cy.get('#filter').find('ion-item').first().click();
       cy.get('#filter').click();
-      cy.wait(1000);
+      cy.wait(2000);
       cy.get('ion-list').get('ion-item').should('have.length', count);
     });
   });
-/*
 
-  it('see Touristic Areas', () => {
+
+  it('See Touristic Areas', () => {
     const filter = '';
     cy.intercept({
       pathname: '/touristic-areas',
@@ -102,6 +102,6 @@ describe('Touristic Area Module', () => {
       expect(interception.response.statusCode).eql(200);
     });
 
-  });*/
+  });
 
 });

@@ -26,15 +26,16 @@ describe('Activity Module', () => {
       },
     }).as('list');
 
-    cy.visit('/activities');
+    cy.get('#activities').click();
+    cy.url().should('include','/activities');
 
     cy.wait('@list').then((interception) => {
       expect(interception.response.statusCode).eql(200);
       count = interception.response.body.metadata.count;
-    }).get('ion-col').should('have.length', count);
+    }).get('ion-col',{ timeout: 10000 }).should('have.length', count);
   });
 
-  it('see activity', () => {
+  it('See activity', () => {
     const filter = '';
     cy.intercept({
       pathname: '/activities',
@@ -45,25 +46,30 @@ describe('Activity Module', () => {
       },
     }).as('list');
     cy.intercept('/activities/*').as('find');
-    cy.visit('/activities');
+    
+    cy.get('#activities').click();
+    cy.url().should('include','/activities');
 
     cy.wait('@list').then((list) => {
       expect(list.response.statusCode).eql(200);
     });
 
     cy.wait(1400);
-    cy.get('ion-col').first().click();
+    cy.get('ion-card').first().click();
 
     cy.url().should('include','/activity-detail');
 
   });
 
   it('Create Comment', () => {
+    
     cy.intercept('/activities/*').as('create');
-    cy.visit('/activities');
+    
+    cy.get('#activities').click();
+    cy.url().should('include','/activities');
 
     cy.wait(1400);
-    cy.get('ion-col').first().click();
+    cy.get('ion-card',{ timeout: 10000 }).first().click();
     cy.get('ion-textarea').type('Prueba Comentario Automatica').type('{enter}');
 
     cy.wait('@create').then((interception) => {
