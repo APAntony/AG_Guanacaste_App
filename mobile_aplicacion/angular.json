@@ -32,8 +32,8 @@
               }
             ],
             "styles": [
-              "src/theme/variables.scss",
-              "src/global.scss"
+              "src/assets/css/variables.scss",
+              "src/assets/css/global.scss"
             ],
             "scripts": [],
             "aot": false,

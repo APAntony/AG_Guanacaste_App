@@ -7,6 +7,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import { AuthRoutingModule } from './auth-routing.module';
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { SharedModule } from '../shared/shared.module'; 
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
   imports: [
     CommonModule,
     IonicModule,
+    SharedModule,
     AuthRoutingModule,
     AppRoutingModule,
     ReactiveFormsModule,

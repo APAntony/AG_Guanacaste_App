@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TypesTouristicAreaService } from '../services';
 import { TouristicAreasService } from '../services/touristic-areas.service';
 
 @Component({
@@ -9,74 +10,87 @@ import { TouristicAreasService } from '../services/touristic-areas.service';
 })
 export class ListedPlacesComponent implements OnInit {
 
-  public objeto_lugares: any;
-  public lugares: any;
-  public allPlaces: any;
-  public form = [ //Para el filtro
-    { val: 'Parques Nacionales', isChecked: false },
-    { val: 'Refugios de vida silvestre', isChecked: false },
-    { val: 'Estacion experimental', isChecked: false }
-  ];
+  private _types: any[];
+  public get Types(): any[] {
+    return this._types;
+  }
 
-  Filter: string;
+  private _places: any[];
+  public get Places(): any[] {
+    return this._places;
+  }
+
+  private _filter: string;
+  public get Filter(): string {
+    return this._filter;
+  }
+  public set Filter(filter: string) {
+    this._filter = filter;
+  }
+
+  private _id_type: string;
+  public get Type(): string {
+    return this._id_type;
+  }
+  public set Type(type: string) {
+    this._id_type = type;
+  }
 
   constructor(
     private touristicAreasService: TouristicAreasService,
     private activatedroute: ActivatedRoute,
+    private typesTouristicAreaService: TypesTouristicAreaService,
     private router: Router
   ) {
-    this.objeto_lugares = {}
-    this.lugares = []
-    this.allPlaces = []
+    this._places = [];
 
-    this.activatedroute.queryParams.subscribe(params => {
-      this.objeto_lugares.page = params.page || 0;
-      this.objeto_lugares.size = params.size || 25;
-      this.objeto_lugares.filter = params.filter || '';
-      this.getTouristicAreas();
-    })
+
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getTypes();
+    this.getTouristicAreas(0, 10);
+  }
 
-  sendTouristicArea(id: number) {
-    this.touristicAreasService.find(id.toString()).subscribe(result =>{
+  private getTypes() {
+    this.typesTouristicAreaService.list().toPromise().then(result => {
       if (result.success) {
-        history.pushState({data: result}, '', '');
-        this.router.navigate(['/place-detail'], {state:{result}});
-        return result;
-      } 
+        this._types = result.data;
+      }
+    }).catch(e => {
+
     });
   }
 
-  getTouristicAreas() {
-    this.touristicAreasService.list(this.objeto_lugares).subscribe(result => {
+  private getTouristicAreas(page, size, filter = '', id_type = '') {
+    this.touristicAreasService.list({
+      page: page,
+      size: size,
+      filter: filter,
+      id_type_tourist_area: id_type
+    }).subscribe(result => {
       if (result.success) {
-        this.lugares = result.data
-        this.allPlaces = result.data
-        console.log(this.lugares[0]);
+        this._places = result.data;
       }
     });
   }
 
-  onFilter(event) : void {
-    //console.log("radioSelect", event);
-    
-    this.lugares = this.allPlaces;
+  sendTouristicArea(id: number) {
+    this.router.navigate(['/place-detail',id]);
+  }
 
-    let category: string = event.detail.value;
+  public onClickFilter(type) {
+    this._id_type = type.id
+    this.getTouristicAreas(0, 10, this._filter, this._id_type);
+  }
 
-    if (category == undefined) {
-      return;
-    }
-    
-    // Only filter the technologies array IF the selection is NOT equal to value of all
-    if (category.trim() !== 'all') {
-      this.lugares = this.lugares.filter((item) => {
-        return item.type_tourist_area.name.toLowerCase().indexOf(category.toLowerCase()) > -1;
-      });
-    }
-    
-    //console.log(this.lugares.length)
+  public onSearch() {
+    this.getTouristicAreas(0, 10, this._filter, this._id_type);
+  }
+
+  public onClearSearch() {
+    this._filter = '',
+      this._id_type = '',
+      this.getTouristicAreas(0, 10);
   }
 }

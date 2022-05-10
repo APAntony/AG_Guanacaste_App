@@ -8,6 +8,8 @@ import { PlaceDetailComponent } from "./place-detail/place-detail.component";
 import { CommentService } from "./services/comment.service";
 import { TouristicAreasService } from "./services/touristic-areas.service";
 import { TouristicAreasRoutingModule } from "./touristic-areas-routing.module";
+import { SharedModule } from '../shared/shared.module'; 
+import { TypesTouristicAreaService } from "./services";
 
 
 @NgModule({
@@ -17,11 +19,12 @@ import { TouristicAreasRoutingModule } from "./touristic-areas-routing.module";
   ],
   imports: [
     CommonModule,
+    SharedModule,
     FormsModule,
     IonicModule,
     TouristicAreasRoutingModule,
     Ng2SearchPipeModule
   ],
-  providers: [TouristicAreasService, CommentService]
+  providers: [TouristicAreasService, CommentService, TypesTouristicAreaService]
 })
 export class TouristicAreasModule { }

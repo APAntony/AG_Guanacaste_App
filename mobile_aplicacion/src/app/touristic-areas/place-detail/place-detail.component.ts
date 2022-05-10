@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { LoaderService } from '@core/services';
+import { LoadingController, ToastController } from '@ionic/angular';
 import { UserService } from 'src/app/core/services/user/user.service';
 import { CommentService } from '../services/comment.service';
+import { TouristicAreasService } from '../services/touristic-areas.service';
 //import {DomSanitanizationService} from '@angular/platform-browser';
 
 @Component({
@@ -12,133 +14,88 @@ import { CommentService } from '../services/comment.service';
 })
 export class PlaceDetailComponent implements OnInit {
 
-  public queryComments: any;
-  public primerImg: any;
-  public lugar: any;
-  tpmComments = [];
-  comments = [];
-  message: string;
-  images: any;
+  private _place: any;
+  public get Place(): any {
+    return this._place;
+  }
+
+  private _loading: boolean;
+  public get Loading(): boolean {
+    return this._loading;
+  }
+
+  private _comments: any[];
+  public get Comments(): any[] {
+    return this._comments;
+  }
+
+  private _comment: string;
+  public get Comment(): string {
+    return this._comment;
+  }
+  public set Comment(text: string) {
+    this._comment = text;
+  }
+
+
+  private _page: string;
+
+  private _id: string;
 
   constructor(
     private router: Router,
     private user: UserService,
     private activatedroute: ActivatedRoute,
     private commentService: CommentService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private touristicAreaService: TouristicAreasService,
+    private loaderService: LoaderService
   ) {
-    this.images = [];
-    this.queryComments = {}
-
+    this._id = this.activatedroute.snapshot.paramMap.get('id');
+    this._loading = true;
+    this._place = {};
+    this._page = '0';
   }
 
   ngOnInit() {
-    this.lugar = history.state.result.data;
+    this.loaderService.present("Cargando");
 
-    this.activatedroute.queryParams.subscribe(params => {
-      this.queryComments.page = params.page || 0;
-      this.queryComments.size = params.size || 5;
-      this.queryComments.filter = params.filter || '';
-      this.getComments();
-    })
-
-    console.log("Comentarios")
-    console.log(this.comments)
-    //console.log(this.lugar.touristic_area_images)
-  }
-
-  
-  ionViewWillEnter() {
-    let i = 0;
-
-    for(i; i <this.lugar.touristic_area_images.length; i++) {
-      this.images.push(this.lugar.touristic_area_images[i]);
-    }
-
-    this.primerImg = this.images[0].url;
-  }
-
-  backHome() {
-    this.router.navigate(['/main-menu'])
-  }
-
-  sendComment() {
-    if (!this.user.isLogin()) {
-      this.presentToast();
-      return;
-    }
-
-    console.log("["+this.message+"]");
-    if (this.message == undefined) {
-      return;
-    } 
-    
-    if (!this.tieneTexto(this.message)) {
-      return;
-    }
-
-    this.createComment({"comment": this.message, "id_user": this.user.getUserId()});
-    this.comments.push({message: this.message, usuario: this.user.getUserName()});
-  }
-
-  eventHandler(keyCode) {
-    if (keyCode === 13) {
-      this.sendComment();
-      this.message = "";
-    }
-  }
-
-  tieneTexto(texto: string) {
-    let letras = "abcdefghyjklmnñopqrstuvwxyz"
-    let texto_lower: string;
-    texto_lower = texto.toLowerCase()
-
-    let index = 0;
-
-    for (index; index < letras.length; index++) {
-      if (texto_lower.includes(letras.charAt(index))) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  getComments() {
-    this.commentService.list(this.lugar.id, this.queryComments).subscribe(result => {
-      this.tpmComments = result.data;
-      this.buildComments();
-    });
-  }
-
-  buildComments() {
-    let i = 0;
-    let nombre: string;
-    for (i; i < this.tpmComments.length; i++) {
-      
-      this.comments.push({
-        message: this.tpmComments[i].comment,
-        usuario: this.tpmComments[i].user.name
-      })
-    }
-  }
-
-  createComment(body: any) {
-    this.commentService.create(this.lugar.id, body).subscribe(result => {
+    this.touristicAreaService.find(this._id).toPromise().then(result => {
+      this.loaderService.dismiss();
       if (result.success) {
-        console.log("Exito")
-      } else {
-        console.log("Fracaso")
+        this._place = result.data;
       }
-    })
-  }
+      this._loading = false;
+    }).catch(err => {
 
-  async presentToast() {
-    const toast = await this.toastController.create({
-      message: "Debes tener una sesión iniciada para comentar",
-      duration: 2000
     });
 
-    toast.present();
+
+    this.commentService.list(this._id, {
+      page: this._page,
+      size: 10
+    }).toPromise().then(result => {
+      if (result.success) {
+        this._comments = result.data;
+      }
+    });
+  }
+
+  public send() {
+    console.log(this._comment);
+    this.commentService.create(this._id, {
+      comment: this._comment,
+      id_user: this.user.getUserId()
+    }).toPromise().then(result => {
+      if (result.success) {
+        result.data.user = {
+          name: this.user.getUserName()
+        };
+        this._comments = [result.data].concat(this._comments);
+        this._comment = '';
+      }
+    }).catch(err => {
+
+    })
   }
 }

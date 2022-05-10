@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  backend: 'https://api-ag-guanacaste.herokuapp.com'
+  backend: 'http://localhost:8080'
 };
 
 /*

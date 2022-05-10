@@ -1,13 +1,11 @@
-import { forwardRef, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
-
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule,HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { AuthModule } from './auth/auth.module';
@@ -30,13 +28,6 @@ import { ActivitiesModule } from './activities/activities.module';
     AppRoutingModule,
     HttpClientModule,
     RouterModule
-    /*ToastrModule.forRoot({
-      timeOut: 8000,
-      positionClass: 'toast-bottom-right',
-      preventDuplicates: true,
-      extendedTimeOut: 1000
-    }),
-    BrowserAnimationsModule*/
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
@@ -47,4 +38,4 @@ import { ActivitiesModule } from './activities/activities.module';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

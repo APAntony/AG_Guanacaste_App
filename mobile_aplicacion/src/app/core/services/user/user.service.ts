@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-const ACCESS_TOKEN = 'access_token'
+const ACCESS_TOKEN = 'access_token';
+const USER = 'user';
 
 
 @Injectable({
@@ -18,25 +19,25 @@ export class UserService {
 
   constructor(private jwtHelper: JwtHelperService) {
     this.user = new BehaviorSubject<any>(null);
-    let access_token = localStorage.getItem(ACCESS_TOKEN);
-    this.readJWT(access_token);
+    let user = localStorage.getItem(USER);
+    this.readJWT(user);
   }
 
-  private readJWT(token: string | null) {
-    if (token) {
+  private readJWT(user: any | null,) {
+    if (user) {
       try {
-        let user = this.jwtHelper.decodeToken(token);
-        user.access_token = token;
+        user = JSON.parse(user);
+        this.jwtHelper.decodeToken(user.access_token);
         this.user.next(user);
-      } catch (Error) {
+      } catch (error) {
+        console.log(error);
         console.error('Session expire!');
       }
     }
   }
 
   public setUser(data: any) {
-    localStorage.setItem(ACCESS_TOKEN, data.access_token);
-    data.user.access_token = data.access_token;
+    localStorage.setItem(USER, JSON.stringify(data));
     this.user.next(data.user);
   }
 
@@ -45,7 +46,7 @@ export class UserService {
       return;
     }
 
-    return this.user.value.id;
+    return this.user.value.user.id;
   }
 
   public getUserName() {
@@ -53,7 +54,7 @@ export class UserService {
       return;
     }
 
-    return this.user.value.name;
+    return this.user.value.user.name;
   }
 
   public verifyToken() {

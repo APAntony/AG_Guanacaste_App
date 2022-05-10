@@ -5,7 +5,7 @@ import { PlaceDetailComponent } from './place-detail/place-detail.component';
 
 const routes: Routes = [
   { path: 'places', component: ListedPlacesComponent },
-  { path: 'place-detail', component: PlaceDetailComponent },
+  { path: 'place-detail/:id', component: PlaceDetailComponent },
 ];
 
 @NgModule({

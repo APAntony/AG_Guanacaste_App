@@ -12,93 +12,27 @@ export class MainMenuComponent implements OnInit {
 
   public dato: any;
 
+  private _menu: any[];
+  public get Menu(): any[] {
+    return this._menu;
+  }
+
+
   constructor(
-    private router: Router,
-    private actionSheetController: ActionSheetController,
-    private toastController: ToastController,
-    private userService: UserService
   ) {
     //this.dato = this.router.getCurrentNavigation().extras.state
+    this._menu = [
+      { title: 'Lugares Turisticos', link: '/places', icon: 'map-outline', image: '../../../assets/idilico.png' },
+      { title: 'Actividades', link: '/activities', icon: 'walk-outline', image: '../../../assets/canopy.jpg' },
+      { title: 'Programas', link: '', icon: '', image: '' }
+    ]
   }
+
 
   ngOnInit() {
     //this.dato = history.state;
   }
 
-  goPlaces() {
-    this.router.navigate(['/places']);
-  }
 
-  goActivities() {
-    this.router.navigate(['/activities']);
-  }
-
-  onClick() {
-    this.presentActionSheet();
-  }
-
-  async presentActionSheet() {
-    const actionSheet = await this.actionSheetController.create({
-      header: 'Opciones de usuario',
-      cssClass: 'my-custom-class',
-      buttons: [
-        {
-        text: 'Login',
-        icon: 'person-circle',
-        id: 'login-button',
-        handler: () => {
-          if (this.userService.isLogin()) {
-            this.presentToast('Ya hay un usuario iniciado');
-          } else {
-            this.router.navigate(['/login']);
-          }
-          
-          //console.log('Login clickeado');
-        }
-      },{
-        text: 'Cerrar sesión',
-        icon: 'log-out',
-        id: 'log-out-button',
-        handler: () => {
-          if (this.userService.isLogin() === false) {
-            this.presentToast('No hay un usuario iniciado');
-          } else {
-            this.userService.logout();
-          }
-        }
-      }, {
-        text: 'Editar usuario',
-        icon: 'pencil',
-        id: 'edit-button',
-        handler: () => {
-          if (this.userService.isLogin() === false) {
-            this.presentToast('No hay un usuario iniciado');
-          } else {
-            this.router.navigate(['/update-user']);
-          }
-        }
-      }, {
-        text: 'Cancel',
-        icon: 'close',
-        role: 'cancel',
-        handler: () => {
-          //console.log("Dato: " + this.dato.name)
-          //console.log('Cancelar clickeado');
-        }
-      }]
-    });
-    await actionSheet.present();
-
-    const { role, data } = await actionSheet.onDidDismiss();
-    console.log('onDidDismiss resolved with role and data', role, data);
-  }
-
-  async presentToast(msg: string) {
-    const toast = await this.toastController.create({
-      message: msg,
-      duration: 2000
-    });
-
-    toast.present();
-  }
+  
 }

@@ -1,28 +1,24 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="end">
-      <ion-button (click)="this.presentActionSheet()">
-        <ion-icon name="person"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-
-    <ion-title>AC Guanacaste</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-toolbar></app-toolbar>
 
 <ion-content fullscreen padding>
-  <ion-item id="touristicArea" (click)="this.goPlaces()">
-    <img src="../../../assets/idilico.png">
-    <ion-label class="l1">
-      <H2>Lugares para turistear</H2>
-    </ion-label>
-  </ion-item>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-list lines="none">
+          <ion-item class="w-100 item" id="touristicArea" [routerLink]="item.link" *ngFor="let item of this.Menu">
+            <img class="w-100 h-100 image" [src]="item.image" />
+            <div class="icon-item">
+              <ion-icon color="light" [name]="item.icon"></ion-icon>
+            </div>
+            <div class="title rounded-bottom">
+              <ion-text color="light" class="ion-text-center">
+                <h4 class="title-text">{{item.title}}</h4>
+              </ion-text>
+            </div>
+          </ion-item>
 
-  <ion-item id="activities" (click)="this.goActivities()">
-    <img src="../../../assets/canopy.jpg">
-    <ion-label class="l2">
-      <H2>Actividades</H2>
-    </ion-label>
-  </ion-item>
-
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

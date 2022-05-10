@@ -5,11 +5,11 @@ import { MainMenuComponent } from './auth/main-menu/main-menu.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'main-menu',
+    redirectTo: 'dashboard',
     pathMatch: 'full'
   },
   {
-    path: 'main-menu',
+    path: 'dashboard',
     component: MainMenuComponent,
     children: [
       {
@@ -19,7 +19,7 @@ const routes: Routes = [
         path: 'login',
         loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
       }, {
-        path: 'update-user',
+        path: 'user',
         loadChildren: () => import('./user/user.module').then(m => m.UserModule)
       }, {
         path: 'activities',

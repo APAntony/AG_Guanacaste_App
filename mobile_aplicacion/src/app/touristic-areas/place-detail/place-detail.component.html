@@ -1,55 +1,110 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button [routerLink]="['/places']"></ion-back-button>
-    </ion-buttons>
-    <ion-title>acguanacaste</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-toolbar></app-toolbar>
 
-<ion-content fullscreen>
-  <ion-item>
-    <img [src]="primerImg"/>
-  </ion-item>
-  <h2>{{lugar.name}}</h2>
-  <div id="description" [innerHTML]="this.lugar.description">
-  </div>
-  <div>
-    <h4 style="padding-left: 10px;">Galería</h4>
-    <ion-slides>
-      <ion-slide *ngFor="let img of images">
-        <img [src]="img.url"/>
-      </ion-slide>
-      <!--
-      <ion-slide>
-        <img src="https://i.imgur.com/nrzHgwL.jpg"/>
-      </ion-slide>
-      <ion-slide>
-        <img src="https://i.imgur.com/nrzHgwL.jpg"/>
-      </ion-slide>-->
-    </ion-slides>
-  </div>
+<ion-content scrollEvents="true" *ngIf="!this.Loading">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <app-back-button Url="/places">
+          Lugares para turistear
+        </app-back-button>
+      </ion-col>
+    </ion-row>
 
-  <h2>Comentarios</h2>
-  <ion-textarea [(ngModel)]="message" type="text" placeholder="Comentario .... " (keypress)="eventHandler($event.keyCode)"></ion-textarea>
-  <ion-button (click)="sendComment()">Send</ion-button>
-  
-  <div class="comment-box">
-    <ion-card *ngFor="let comment of comments">
-      <ion-card-content>
-            <strong>{{comment.usuario}}</strong>
-            <p>
-              {{comment.message}}
-            </p>
-      </ion-card-content>
-     
-    </ion-card>
-  </div>
+    <ion-row>
+      <ion-col size="12">
+        <div class="w-100">
+          <img class="w-100 h-100 image" [src]="this.Place.touristic_area_images[0]?.url | image">
+          <div class="overlay ion-text-center">
+            <ion-text color="light" class="ion-text-center ">
+              <h6 class="overlay-text">{{ this.Place.name }}</h6>
+            </ion-text>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
 
-  <!-- fab placed to the bottom start -->
-  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-    <ion-fab-button [routerLink]="['/main-menu']">
-      <ion-icon name="home"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+    <ion-row>
+      <ion-col size="12" class="text-body">
+        <ion-text color="primary" [innerHTML]="this.Place.description">
+
+        </ion-text>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="7">
+        <ion-button color="primary">
+          Ver guia de actividades
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-text color="primary">
+          <h5 class="strong">Galería</h5>
+
+        </ion-text>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-slides>
+          <ion-slide class="slide" *ngFor="let image of this.Place.touristic_area_images">
+            <img class=" rounded" [src]="image.url | image" />
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-text color="primary">
+          <h5 class="strong">Cometarios</h5>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-align-items-center">
+      <ion-col size="10">
+        <ion-textarea [(ngModel)]="this.Comment" class="comment-input rounded" color="primary" type="text" placeholder="Comentario...">
+
+        </ion-textarea>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button (click)="send()" color="primary" class="ion-text-center">
+          <ion-icon name="send-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-list >
+          <ion-item *ngFor="let comment of this.Comments">
+            <div>
+              <ion-text color="primary">
+                <h6 class="strong">
+                  {{ comment.user.name }}.
+                  <small>
+                    {{comment.createdAt | date}}
+                  </small>
+                </h6>
+              </ion-text>
+              <ion-text color="primary">
+                <p>
+                  {{ comment.comment }}
+                </p>
+                
+              </ion-text>
+            </div>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+
+
+  </ion-grid>
+  <app-home-button></app-home-button>
 </ion-content>
