@@ -11,6 +11,7 @@ import { CommentService } from './services/comment.service';
 import { AccessibilitiesService } from './services/accessibilities.service';
 import { ActivityTypesService } from './services/activity-types.service';
 import { DifficultiesService } from './services/difficulties.service';
+import { SharedModule } from '../shared/shared.module'; 
 
 
 
@@ -23,6 +24,7 @@ import { DifficultiesService } from './services/difficulties.service';
     CommonModule,
     FormsModule,
     IonicModule,
+    SharedModule,
     ActivitiesRoutingModule,
     Ng2SearchPipeModule
   ],

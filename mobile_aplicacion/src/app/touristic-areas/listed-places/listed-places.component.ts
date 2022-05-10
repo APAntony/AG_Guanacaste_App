@@ -76,11 +76,11 @@ export class ListedPlacesComponent implements OnInit {
   }
 
   sendTouristicArea(id: number) {
-    this.router.navigate(['/place-detail',id]);
+    this.router.navigate(['/place-detail', id]);
   }
 
-  public onClickFilter(type) {
-    this._id_type = type.id
+  public onClickFilter(event) {
+    this._id_type = event.detail.value;
     this.getTouristicAreas(0, 10, this._filter, this._id_type);
   }
 
@@ -89,8 +89,8 @@ export class ListedPlacesComponent implements OnInit {
   }
 
   public onClearSearch() {
-    this._filter = '',
-      this._id_type = '',
-      this.getTouristicAreas(0, 10);
+    this._filter = '';
+    this._id_type = '';
+    this.getTouristicAreas(0, 10);
   }
 }

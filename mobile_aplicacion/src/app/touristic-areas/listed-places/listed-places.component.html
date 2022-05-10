@@ -11,7 +11,7 @@
     </ion-row>
     <ion-row class="ion-align-items-center">
       <ion-col size="10">
-        <ion-searchbar [(value)]="this.Filter" (keydown.enter)="onSearch()" (ionClear)="this.onClearSearch()"
+        <ion-searchbar [(ngModel)]="this.Filter" (keydown.enter)="onSearch()" (ionClear)="this.onClearSearch()"
           placeholder="Buscar por nombre" color="secondary">
         </ion-searchbar>
       </ion-col>
@@ -23,12 +23,12 @@
         <ion-popover id="filter" trigger="filter-button">
           <ng-template>
             <ion-list>
-              <ion-radio-group [value]="this.Type" allow-empty-selection="true" name="Categorias">
+              <ion-radio-group [value]="this.Type" allow-empty-selection="true" name="Categorias" (ionChange)="this.onClickFilter($event)">
                 <ion-list-header>
                   <ion-label color="primary" class=" filter-title">Filtros</ion-label>
                 </ion-list-header>
 
-                <ion-item lines="none" *ngFor="let type of this.Types" (click)="this.onClickFilter(type)">
+                <ion-item lines="none" *ngFor="let type of this.Types" >
                   <ion-label> {{ type.name }}</ion-label>
                   <ion-radio slot="start" [value]="type.id"></ion-radio>
                 </ion-item>

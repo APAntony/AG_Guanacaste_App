@@ -12,16 +12,60 @@ import { DifficultiesService } from '../services/difficulties.service';
 })
 export class ListedActivitiesComponent implements OnInit {
 
-  public queryActividades: any;
-  allActivities: any;
-  actividades: any;
-  difficulties: any;
-  activity_types: any;
-  accessibilities: any;
-  grid: Array<Array<string>>; //array of arrays
 
-  Filter: string;
-  
+  private _places: any[];
+  public get Places(): any[] {
+    return this._places;
+  }
+
+  private _filter: string;
+  public get Filter(): string {
+    return this._filter;
+  }
+  public set Filter(filter: string) {
+    this._filter = filter;
+  }
+
+
+  private _id_difficulty: string;
+  public get Difficulty(): string {
+    return this._id_difficulty;
+  }
+  public set Difficulty(type: string) {
+    this._id_difficulty = type;
+  }
+
+  private _id_activity_type: string;
+  public get Type(): string {
+    return this._id_activity_type;
+  }
+  public set Type(type: string) {
+    this._id_activity_type = type;
+  }
+
+  private _id_accessbility: string;
+  public get Accesibility(): string {
+    return this._id_accessbility;
+  }
+  public set Accesibility(type: string) {
+    this._id_accessbility = type;
+  }
+
+  private _difficulties: any[];
+  public get Difficulties(): any[] {
+    return this._difficulties;
+  }
+
+  private _types: any[];
+  public get Types(): any[] {
+    return this._types;
+  }
+
+  private _accesibilities: any[];
+  public get Accesibilities(): any[] {
+    return this._accesibilities;
+  }
+
   constructor(
     private activitiesService: ActivitiesService,
     private difficultiesService: DifficultiesService,
@@ -30,157 +74,81 @@ export class ListedActivitiesComponent implements OnInit {
     private activatedroute: ActivatedRoute,
     private router: Router
   ) {
-    this.queryActividades = {}
-    this.actividades = []
-    this.allActivities = []
-    this.grid = [];
 
-    this.activatedroute.queryParams.subscribe(params => {
-      this.queryActividades.page = params.page || 0;
-      this.queryActividades.size = params.size || 5;
-      this.queryActividades.filter = params.filter || '';
-      this.getActividades();
-    })
-
-    this.getCategories();
   }
 
   ngOnInit() {
-    this.grid = Array(Math.ceil(this.actividades.length/2)); //MATHS!
+    this.getActivities(0, 10);
+    this.getDifficulties();
+    this.getTypes();
+    this.getAccessibilities();
   }
 
-  
-  ionViewDidEnter() {
-    let rowNum = 0; //counter to iterate over the rows in the grid
-  
-    for (let i = 0; i < this.actividades.length; i+=2) { //iterate images
-  
-      this.grid[rowNum] = Array(2); //declare two elements per row
-  
-      if (this.actividades[i] !== undefined) { //check file URI exists
-        this.grid[rowNum][0] = this.actividades[i] //insert image
-      }
-  
-      if (this.actividades.length > (i+1)) { //repeat for the second image
-        this.grid[rowNum][1] = this.actividades[i+1]
-      }
-
-      if (this.actividades.length <= (i+1)) {
-        break;
-      }
-  
-      rowNum++; //go on to the next row
-    }
-
-    if (this.actividades.length%2 == 1) {
-      this.grid[(this.grid.length-1)].pop();
-    }
-    //console.log(this.actividades[0]);
-    //console.log(this.grid[2])
+  sendActivity(id: any) {
+    this.router.navigate(['/activity-detail', id]);
   }
 
-  getActividades() {
-    this.activitiesService.list(this.queryActividades).subscribe(result => {
+  private getDifficulties() {
+    this.difficultiesService.list().toPromise().then(result => {
+      this._difficulties = result.data;
+    }).catch(e => {
+
+    })
+  }
+
+  private getTypes() {
+    this.activityTypeService.list().toPromise().then(result => {
+      this._types = result.data;
+    }).catch(e => {
+
+    })
+  }
+
+  private getAccessibilities() {
+    this.accessibilitiesServices.list().toPromise().then(result => {
+      this._accesibilities = result.data;
+    }).catch(e => {
+
+    })
+  }
+
+  private getActivities(page, size, filter = '', id_difficulty = '', id_activity_type = '', id_accessibility = '') {
+    this.activitiesService.list({
+      page: page,
+      size: size,
+      filter: filter,
+      id_difficulty: id_difficulty,
+      id_activity_type: id_activity_type,
+      id_accessibility: id_accessibility
+    }).subscribe(result => {
       if (result.success) {
-        this.actividades = result.data;
-        this.allActivities = result.data;
-        //console.log(this.tmpActivities);
-        //this.getImages()
+        this._places = result.data;
       }
     });
   }
 
-  putNewGrid() {
-    let rowNum = 0; //counter to iterate over the rows in the grid
-  
-    for (let i = 0; i < this.actividades.length; i+=2) { //iterate images
-  
-      this.grid[rowNum] = Array(2); //declare two elements per row
-  
-      if (this.actividades[i] !== undefined) { //check file URI exists
-        this.grid[rowNum][0] = this.actividades[i] //insert image
-      }
-  
-      if (this.actividades.length > (i+1)) { //repeat for the second image
-        this.grid[rowNum][1] = this.actividades[i+1]
-      }
-
-      if (this.actividades.length <= (i+1)) {
-        break;
-      }
-  
-      rowNum++; //go on to the next row
-    }
-
-    if (this.actividades.length%2 == 1) {
-      this.grid[(this.grid.length-1)].pop();
-    }
+  public onChangeType(event) {
+    this._id_activity_type = event.detail.value;
+    this.getActivities(0, 10, this._filter, this._id_difficulty, this._id_activity_type, this._id_accessbility);
   }
 
-  getCategories() {
-    this.difficultiesService.list().subscribe(res => {
-      if (res.success) {
-        this.difficulties = res.data;
-      }
-    });
-
-    this.activityTypeService.list().subscribe(res => {
-      if (res.success) {
-        this.activity_types = res.data;
-      }
-    });
-
-    this.accessibilitiesServices.list().subscribe(res => {
-      if (res.success) {
-        this.accessibilities = res.data;
-      }
-    });
+  public onChangeDifficulty(event) {
+    this._id_difficulty = event.detail.value;
+    this.getActivities(0, 10, this._filter, this._id_difficulty, this._id_activity_type, this._id_accessbility);
   }
 
-  sendActivity(item: any) {
-    history.pushState({data: item}, '', '');
-    this.router.navigate(['/activity-detail'], {state:{item}});
-    /*
-    this.activitiesService.find(id).subscribe(result => {
-      if (result.success) {
-        history.pushState({data: result}, '', '');
-        this.router.navigate(['/activity-detail'], {state:{result}});
-        return result;
-      }
-    });*/
+  public onChangeAccesibility(event) {
+    this._id_accessbility = event.detail.value;
+    this.getActivities(0, 10, this._filter, this._id_difficulty, this._id_activity_type, this._id_accessbility);
   }
 
-  onFilter(event) : void {
-    console.log("radioSelect", event);
-    console.log(event.detail.value.split(","))
-
-    this.actividades = this.allActivities;
-
-    let category: string = event.detail.value.split(",")[0];
-    let tipo: string = event.detail.value.split(",")[1];
-    console.log(this.actividades);
-
-    if (category == undefined) {
-      return;
-    }
-
-    if (tipo == "diff") {
-      this.actividades = this.actividades.filter((item) => {
-        return item.difficulty.name.toLowerCase().indexOf(category.toLowerCase()) > -1;
-      });   
-      console.log("Largo ahora: " + this.actividades.length)   
-    } else if (tipo == "tipo") {
-      this.actividades = this.actividades.filter((item) => {
-        return item.activity_type.name.toLowerCase().indexOf(category.toLowerCase()) > -1;
-      });
-    } else {
-      this.actividades = this.actividades.filter((item) => {
-        return item.accessibility.name.toLowerCase().indexOf(category.toLowerCase()) > -1;
-      });
-    }
-    
-    this.grid = Array(Math.ceil(this.actividades.length/2)); //MATHS!
-    this.putNewGrid();
-    console.log(this.actividades.length)
+  public onSearch() {
+    this.getActivities(0, 10, this._filter, this._id_difficulty, this._id_activity_type, this._id_accessbility);
   }
+
+  public onClearSearch() {
+    this._filter = '';
+    this.getActivities(0, 10, this._filter, this._id_difficulty, this._id_activity_type, this._id_accessbility);
+  }
+
 }

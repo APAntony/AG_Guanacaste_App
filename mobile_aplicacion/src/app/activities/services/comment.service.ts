@@ -14,7 +14,7 @@ export class CommentService {
     return this.http.get(`${URL}/${id}/comments`, { params: query })
   }
 
-  public create(id: number, body: any): Observable<any> {
+  public create(id: string, body: any): Observable<any> {
     return this.http.post(`${URL}/${id}/comments`, body)
   }
 }

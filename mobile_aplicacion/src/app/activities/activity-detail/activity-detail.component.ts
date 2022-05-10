@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LoaderService } from '@core/services';
 import { ToastController } from '@ionic/angular';
 import { UserService } from 'src/app/core/services/user/user.service';
+import { ActivitiesService } from '../services/activities.service';
 import { CommentService } from '../services/comment.service';
 
 @Component({
@@ -11,130 +13,88 @@ import { CommentService } from '../services/comment.service';
 })
 export class ActivityDetailComponent implements OnInit {
 
-  public queryComments: any;
-  public primerImg: any;
-  public actividad: any;
-  tpmComments = [];
-  comments = [];
-  message: string;
-  images: any;
+  private _activity: any;
+  public get Activity(): any {
+    return this._activity;
+  }
+
+  private _loading: boolean;
+  public get Loading(): boolean {
+    return this._loading;
+  }
+
+  private _comments: any[];
+  public get Comments(): any[] {
+    return this._comments;
+  }
+
+  private _comment: string;
+  public get Comment(): string {
+    return this._comment;
+  }
+  public set Comment(text: string) {
+    this._comment = text;
+  }
+
+
+  private _page: string;
+
+  private _id: string;
 
   constructor(
     private router: Router,
     private user: UserService,
     private activatedroute: ActivatedRoute,
     private commentService: CommentService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private activityService: ActivitiesService,
+    private loaderService: LoaderService
   ) {
-    this.images = [];
-    this.queryComments = {}
+    this._id = this.activatedroute.snapshot.paramMap.get('id');
+    this._loading = true;
+    this._activity = {};
+    this._page = '0';
   }
 
   ngOnInit() {
-    this.actividad = history.state.item;
+    this.loaderService.present("Cargando");
 
-    console.log("Actividad")
-    console.log(this.actividad);
-
-    this.activatedroute.queryParams.subscribe(params => {
-      this.queryComments.page = params.page || 0;
-      this.queryComments.size = params.size || 5;
-      this.queryComments.filter = params.filter || '';
-      this.getComments();
-    })
-  }
-
-  ionViewWillEnter() {
-    let i = 0;
-
-    for(i; i <this.actividad.activity_images.length; i++) {
-      this.images.push(this.actividad.activity_images[i]);
-    }
-
-    this.primerImg = this.images[0].url;
-  }
-
-  backHome() {
-    this.router.navigate(['/main-menu'])
-  }
-
-  sendComment() {
-    if (!this.user.isLogin()) {
-      this.presentToast();
-      return;
-    }
-
-    console.log("["+this.message+"]");
-    if (this.message == undefined) {
-      return;
-    } 
-    
-    if (!this.tieneTexto(this.message)) {
-      return;
-    }
-
-    this.createComment({"comment": this.message, "id_user": this.user.getUserId()});
-    this.comments.push({message: this.message, usuario: this.user.getUserName()});
-  }
-
-  eventHandler(keyCode) {
-    if (keyCode === 13) {
-      this.sendComment();
-      this.message = "";
-    }
-  }
-
-  tieneTexto(texto: string) {
-    let letras = "abcdefghyjklmnñopqrstuvwxyz"
-    let texto_lower: string;
-    texto_lower = texto.toLowerCase()
-
-    let index = 0;
-
-    for (index; index < letras.length; index++) {
-      if (texto_lower.includes(letras.charAt(index))) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  getComments() {
-    this.commentService.list(this.actividad.id, this.queryComments).subscribe(result => {
-      this.tpmComments = result.data;
-      this.buildComments();
-    });
-  }
-
-  buildComments() {
-    let i = 0;
-
-    for (i; i < this.tpmComments.length; i++) {
-      
-      this.comments.push({
-        message: this.tpmComments[i].comment,
-        usuario: this.tpmComments[i].user.name
-      })
-    }
-  }
-
-  createComment(body: any) {
-    this.commentService.create(this.actividad.id, body).subscribe(result => {
+    this.activityService.find(this._id).toPromise().then(result => {
+      this.loaderService.dismiss();
       if (result.success) {
-        console.log("Exito")
-      } else {
-        console.log("Fracaso")
+        this._activity = result.data;
       }
-    })
-  }
+      this._loading = false;
+    }).catch(err => {
 
-  async presentToast() {
-    const toast = await this.toastController.create({
-      message: "Debes tener una sesión iniciada para comentar",
-      duration: 2000
     });
 
-    toast.present();
+
+    this.commentService.list(this._id, {
+      page: this._page,
+      size: 10
+    }).toPromise().then(result => {
+      if (result.success) {
+        this._comments = result.data;
+      }
+    });
+  }
+
+  public send() {
+    console.log(this._comment);
+    this.commentService.create(this._id, {
+      comment: this._comment,
+      id_user: this.user.getUserId()
+    }).toPromise().then(result => {
+      if (result.success) {
+        result.data.user = {
+          name: this.user.getUserName()
+        };
+        this._comments = [result.data].concat(this._comments);
+        this._comment = '';
+      }
+    }).catch(err => {
+
+    })
   }
 }

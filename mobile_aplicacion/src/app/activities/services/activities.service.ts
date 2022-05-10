@@ -10,7 +10,7 @@ export class ActivitiesService {
 
   constructor(private http: HttpClient) { }
 
-  public find(id: number): Observable<any> {
+  public find(id: string): Observable<any> {
     return this.http.get(`${URL}/${id}`);
   }
 
