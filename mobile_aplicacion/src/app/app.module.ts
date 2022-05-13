@@ -12,6 +12,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from 'src/app/user/user.module';
 import { TouristicAreasModule } from 'src/app/touristic-areas/touristic-areas.module';
 import { ActivitiesModule } from './activities/activities.module';
+import { ProgramsModule } from './programs/programs.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ActivitiesModule } from './activities/activities.module';
     UserModule,
     TouristicAreasModule,
     ActivitiesModule,
+    ProgramsModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,

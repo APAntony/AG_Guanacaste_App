@@ -24,7 +24,7 @@ export class MainMenuComponent implements OnInit {
     this._menu = [
       { title: 'Lugares Turisticos', link: '/places', icon: 'map-outline', image: '../../../assets/idilico.png' },
       { title: 'Actividades', link: '/activities', icon: 'walk-outline', image: '../../../assets/canopy.jpg' },
-      { title: 'Programas', link: '', icon: '', image: '' }
+      { title: 'Programas', link: '/programs', icon: 'reader-outline', image: '../../../assets/program.png' }
     ]
   }
 

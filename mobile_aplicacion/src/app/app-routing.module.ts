@@ -24,6 +24,9 @@ const routes: Routes = [
       }, {
         path: 'activities',
         loadChildren: () => import('./activities/activities.module').then(m => m.ActivitiesModule)
+      }, {
+        path: 'programs',
+        loadChildren: () => import('./programs/programs.module').then(m => m.ProgramsModule)
       }
     ]
   }
