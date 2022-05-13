@@ -30,14 +30,12 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(data) {
     data.id_rol = 1;
-    //console.log(data);
 
     this.usersService.create(data).subscribe(result => {
       if (result.success) {
         this.presentToast('Usuario creado con exito!');
         this.router.navigate(['/']);
       } else {
-        //console.log(result.error.message);
         this.presentToast(result.error.message);
       }
     })

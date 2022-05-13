@@ -12,15 +12,6 @@ import { ToastController } from '@ionic/angular';
 })
 export class LoginComponent implements OnInit {
 
-  /*private form = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-  });
-
-  public get Form(): FormGroup {
-    return this.form;
-  }*/
-
   public userForm: FormGroup;
 
   constructor(
@@ -41,22 +32,13 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(data) {
-    //console.log(data);
     this.authService.login(data).subscribe(result => {
-      //console.log(result.success);
       if (result.success) {
         this.presentToast('Credenciales validas');
         this.userService.setUser(result.data);
-        
-        //console.log(this.userService.getUserId());
-        
-        this.router.navigate(['/main-menu']);
+        this.router.navigate(['/dashboard']);
       } else {
-        //console.log(result.error.message);
         this.presentToast(result.error.message);
-        
-        //TEMPORAL
-        //this.router.navigate(['/']);
       }
     })
   }
