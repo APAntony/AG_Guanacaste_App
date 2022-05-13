@@ -57,14 +57,14 @@ export class ListedProgramsComponent implements OnInit {
     }).catch(e => {
 
     })
-  }
+  } 
 
   private getPrograms(page, size, filter = '', id_program_type = '') {
     this.programsServices.list({
       page: page,
       size: size,
       filter: filter,
-      id_activity_type: id_program_type,
+      id_education_program_type: id_program_type,
     }).subscribe(result => {
       if (result.success) {
         this._programs = result.data;
@@ -74,6 +74,7 @@ export class ListedProgramsComponent implements OnInit {
 
   public onChangeType(event) {
     this._id_program_type = event.detail.value;
+    console.log(this._id_program_type)
     this.getPrograms(0, 10, this._filter, this._id_program_type);
   }
 
