@@ -34,14 +34,6 @@
     </ion-row>
 
     <ion-row>
-      <ion-col size="12" class="text-body">
-        <ion-button class="filter" id="filter-button" [href]="this.Program.inscription_link">
-          Inscribete
-        </ion-button>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
       <ion-col size="12">
         <ion-text color="primary">
           <h5 class="strong m-0">¿Cómo llegar?</h5>
@@ -56,6 +48,14 @@
             {{ this.Program.direction }}
           </p>  
         </ion-text>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="6" class="text-body">
+        <ion-button class="filter" expand="block" id="filter-button" [href]="this.Program.inscription_link">
+          Inscribete
+        </ion-button>
       </ion-col>
     </ion-row>
 
@@ -112,6 +112,22 @@
             <img class=" rounded" [src]="image.url | image" />
           </ion-slide>
         </ion-slides>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-text color="primary">
+          <h5 class="strong m-0">¿Querés buscar más actividades en la zona?</h5>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="6" class="text-body">
+        <ion-button class="filter" expand="block" id="filter-button" (click)="searchNear()">
+          ¿Qué hacer?
+        </ion-button>
       </ion-col>
     </ion-row>
 

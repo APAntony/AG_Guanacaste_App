@@ -66,6 +66,11 @@ export class ListedActivitiesComponent implements OnInit {
     return this._accesibilities;
   }
 
+  private _near: any
+  public get Near(): any {
+    return this._near;
+  }
+
   constructor(
     private activitiesService: ActivitiesService,
     private difficultiesService: DifficultiesService,
@@ -74,10 +79,10 @@ export class ListedActivitiesComponent implements OnInit {
     private activatedroute: ActivatedRoute,
     private router: Router
   ) {
-
   }
 
   ngOnInit() {
+    this._near = this.router.getCurrentNavigation().extras.state;
     this.getActivities(0, 10);
     this.getDifficulties();
     this.getTypes();
@@ -113,13 +118,19 @@ export class ListedActivitiesComponent implements OnInit {
   }
 
   private getActivities(page, size, filter = '', id_difficulty = '', id_activity_type = '', id_accessibility = '') {
+    let geom = '';
+
+    if(this._near){
+      geom = JSON.stringify(this._near.geom);
+    }
     this.activitiesService.list({
       page: page,
       size: size,
       filter: filter,
       id_difficulty: id_difficulty,
       id_activity_type: id_activity_type,
-      id_accessibility: id_accessibility
+      id_accessibility: id_accessibility,
+      geom: geom
     }).subscribe(result => {
       if (result.success) {
         this._places = result.data;
@@ -149,6 +160,13 @@ export class ListedActivitiesComponent implements OnInit {
   public onClearSearch() {
     this._filter = '';
     this.getActivities(0, 10, this._filter, this._id_difficulty, this._id_activity_type, this._id_accessbility);
+  }
+
+  public makeTitle(){
+    if(this._near){
+      return `Qué hacer cerca de ${this._near.name}`
+    }
+    return 'Qué hacer'
   }
 
 }
