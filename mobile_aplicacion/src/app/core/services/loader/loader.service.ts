@@ -13,12 +13,10 @@ export class LoaderService {
     this.isLoading = true;
     return await this.loadingController.create({
       message: message
-      // duration: 5000,
     }).then(a => {
       a.present().then(() => {
-        console.log('presented');
         if (!this.isLoading) {
-          a.dismiss().then(() => console.log('abort presenting'));
+          a.dismiss();
         }
       });
     });
@@ -26,6 +24,6 @@ export class LoaderService {
 
   async dismiss() {
     this.isLoading = false;
-    return await this.loadingController.dismiss().then(() => console.log('dismissed'));
+    return await this.loadingController.dismiss();
   }
 }

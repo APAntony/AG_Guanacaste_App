@@ -12,16 +12,23 @@ const USER = 'user';
 export class UserService {
 
   private user: BehaviorSubject<any>;
+  private sessionState: BehaviorSubject<boolean>;
 
   public get User(): Observable<any> {
     return this.user.asObservable();
   }
 
   constructor(private jwtHelper: JwtHelperService) {
+    this.sessionState = new BehaviorSubject<boolean>(false);
     this.user = new BehaviorSubject<any>(null);
+    this.user.asObservable().subscribe(user=>{
+      this.sessionState.next(this.isLogin());
+    });
     let user = localStorage.getItem(USER);
     this.readJWT(user);
   }
+
+
 
   private readJWT(user: any | null,) {
     if (user) {
@@ -30,8 +37,6 @@ export class UserService {
         this.jwtHelper.decodeToken(user.access_token);
         this.user.next(user);
       } catch (error) {
-        console.log(error);
-        console.error('Session expire!');
       }
     }
   }
@@ -73,6 +78,7 @@ export class UserService {
 
   public logout() {
     localStorage.removeItem(ACCESS_TOKEN);
+    localStorage.removeItem(USER);
     this.user.next(null);
   }
 
@@ -80,11 +86,15 @@ export class UserService {
     return this.user.value.access_token;
   }
 
-  public isLogin():boolean{
-    if(this.user.value){
+  public isLogin(): boolean {
+    if (this.user.value) {
       return true;
     }
     return false;
+  }
+
+  public getSessionState(): Observable<boolean> {
+    return this.sessionState.asObservable();
   }
 
 }
