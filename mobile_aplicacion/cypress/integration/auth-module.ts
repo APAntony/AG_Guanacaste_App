@@ -4,13 +4,13 @@ describe('Auth Module', () => {
     cy.intercept('/auth/login').as('login');
 
     cy.visit('/login');
-    cy.get('input[formControlName=email]').type('user@email.com');
-    cy.get('input[formControlName=password]').type('password');
+    cy.get('ion-input[formControlName=email]').type('user@email.com');
+    cy.get('ion-input[formControlName=password]').type('password');
     cy.get('ion-button[type=submit]').click();
 
     cy.wait('@login').then((interception) => {
       expect(interception.response.statusCode).eql(200);
-      cy.url().should('include', '/main-menu').end();
+      cy.url().should('include', '/dashboard').end();
     });
   });
 
@@ -23,10 +23,8 @@ describe('Auth Module', () => {
     cy.get('input[formControlName=password]').type('password');
     cy.get('ion-button[type=submit]').click();
 
-    cy.wait('@update').then((interception) => {
-      expect(interception.response.statusCode).eql(200);
-      cy.url().should('include', '/main-menu').end();
-    });
+    cy.wait('@update');
+    cy.url().should('include', '/dashboard').end();
   });
 
 });

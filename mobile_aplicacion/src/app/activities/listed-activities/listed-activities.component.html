@@ -69,8 +69,8 @@
     </ion-row>
     <ion-row>
 
-      <ion-col size="6" *ngFor="let place of this.Places">
-        <div class="w-100 item" id="touristicArea" (click)="this.sendActivity(place.id)">
+      <ion-col class="place" size="6" *ngFor="let place of this.Places">
+        <div class="w-100 item" (click)="this.sendActivity(place.id)">
           <img class="w-100 h-100 image" [src]="place.activity_images[0]?.url | image" />
 
           <div class="title rounded-bottom">

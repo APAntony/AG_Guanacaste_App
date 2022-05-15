@@ -141,7 +141,7 @@
 
     <ion-row class="ion-align-items-center" *ngIf="ShowComments">
       <ion-col size="10">
-        <ion-textarea [(ngModel)]="this.Comment" class="comment-input rounded" color="primary" type="text" placeholder="Comentario...">
+        <ion-textarea [(ngModel)]="this.Comment" (keyup.enter)="send()" class="comment-input rounded" color="primary" type="text" placeholder="Comentario...">
 
         </ion-textarea>
       </ion-col>

@@ -22,9 +22,9 @@ export class MainMenuComponent implements OnInit {
   ) {
     //this.dato = this.router.getCurrentNavigation().extras.state
     this._menu = [
-      { title: 'Lugares Turisticos', link: '/places', icon: 'map-outline', image: '../../../assets/idilico.png' },
-      { title: 'Actividades', link: '/activities', icon: 'walk-outline', image: '../../../assets/canopy.jpg' },
-      { title: 'Programas', link: '/programs', icon: 'reader-outline', image: '../../../assets/program.png' }
+      { id: 'places', title: 'Lugares Turisticos', link: '/places', icon: 'map-outline', image: '../../../assets/idilico.png' },
+      { id: 'activities', title: 'Actividades', link: '/activities', icon: 'walk-outline', image: '../../../assets/canopy.jpg' },
+      { id: 'programs', title: 'Programas', link: '/programs', icon: 'reader-outline', image: '../../../assets/program.png' }
     ]
   }
 
@@ -34,5 +34,5 @@ export class MainMenuComponent implements OnInit {
   }
 
 
-  
+
 }

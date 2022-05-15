@@ -40,10 +40,10 @@ export class UpdateUserComponent implements OnInit {
   onSubmit(data) {
     data = this.checkData(data);
     if (data.password !== "") {
-      this.usersService.update(this.user.id, data).subscribe(result => {
+      this.usersService.update(this.user.user.id, data).subscribe(result => {
         if (result.success) {
           this.presentToast('Usuario editado con exito!');
-          this.router.navigate(['/main-menu'])
+          this.router.navigate(['/dashboard'])
         } else {
           this.presentToast(result.error.message);
         }

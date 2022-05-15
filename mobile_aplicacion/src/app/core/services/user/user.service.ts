@@ -43,7 +43,8 @@ export class UserService {
 
   public setUser(data: any) {
     localStorage.setItem(USER, JSON.stringify(data));
-    this.user.next(data.user);
+    localStorage.setItem(ACCESS_TOKEN, data.access_token);
+    this.user.next(data);
   }
 
   public getUserId() {

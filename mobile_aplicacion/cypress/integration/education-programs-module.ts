@@ -1,4 +1,4 @@
-describe('Touristic Area Module', () => {
+describe('Education Program Module', () => {
 
   beforeEach(() => {
     cy.intercept('/auth/login').as('login');
@@ -14,25 +14,24 @@ describe('Touristic Area Module', () => {
     });
   });
 
-  it('List Touristic Areas', () => {
-    cy.intercept('GET', '/touristic-areas*').as('list');
+  it('List Eduation Programs', () => {
 
-    cy.get('#places').click();
-    cy.url().should('include','/places');
+    cy.intercept('GET', '/education-programs*').as('list');
+
+    cy.get('#programs').click();
+    cy.url().should('include','/programs');
 
     cy.wait('@list');
-
   });
 
   it('Apply filter', () => {
-    cy.intercept('GET', '/touristic-areas*').as('list');
+    cy.intercept('GET', '/education-programs*').as('list');
 
-    cy.get('#places').click();
-    cy.url().should('include','/places');
+    cy.get('#programs').click();
+    cy.url().should('include','/programs');
 
 
     cy.wait('@list').then((interception) => {
-     
       cy.get('#filter-button').click();
       cy.get('#filter').find('ion-item').first().click();
       cy.get('#filter').click();
@@ -40,34 +39,34 @@ describe('Touristic Area Module', () => {
     });
   });
 
-
-  it('See Touristic Areas', () => {
-    cy.intercept('GET', '/touristic-areas*').as('list');
-    cy.intercept('/touristic-areas/*').as('find');
+  it('See Education Program', () => {
+    cy.intercept('GET', '/education-programs*').as('list');
+    cy.intercept('/education-programs/*').as('find');
     
-    cy.get('#places').click();
-    cy.url().should('include','/places');
+    cy.get('#programs').click();
+    cy.url().should('include','/programs');
 
     cy.wait('@list');
 
     cy.get('div.item').first().click();
 
-    cy.url().should('include','/place-detail');
+    cy.url().should('include','/program-detail');
   });
 
   it('Create Comment', () => {
-    cy.intercept('GET', '/touristic-areas*').as('list');
-    cy.intercept('/touristic-areas/*').as('create');
+    cy.intercept('GET', '/education-programs*').as('list');
+    cy.intercept('/education-programs/*').as('create');
     
-    cy.get('#places').click();
-    cy.url().should('include','/places');
+    cy.get('#programs').click();
+    cy.url().should('include','/programs');
 
     cy.wait('@list');
 
     cy.get('div.item').first().click();
-    cy.get('ion-textarea').type('Prueba Comentar').type('{enter}');
+    cy.get('ion-textarea').type('Prueba Comentario').type('{enter}');
 
     cy.wait('@create');
+
   });
 
 });
