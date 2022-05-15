@@ -31,7 +31,7 @@
                 <ion-radio-group [value]="this.Difficulty" (ionChange)="this.onChangeDifficulty($event)"
                   allow-empty-selection="true">
                   <ion-item *ngFor="let item of this.Difficulties">
-                    <ion-label>{{item.name}}</ion-label>
+                    <ion-label color="primary">{{item.name}}</ion-label>
                     <ion-radio slot="start" [value]="item.id"></ion-radio>
                   </ion-item>
                 </ion-radio-group>
@@ -42,7 +42,7 @@
 
                 <ion-radio-group [value]="this.Type" (ionChange)="this.onChangeType($event)">
                   <ion-item *ngFor="let item of this.Types">
-                    <ion-label>{{item.name}}</ion-label>
+                    <ion-label color="primary">{{item.name}}</ion-label>
                     <ion-radio slot="start" [value]="item.id"></ion-radio>
                   </ion-item>
                 </ion-radio-group>
@@ -54,7 +54,7 @@
                 <ion-radio-group [value]="this.Accesibility" (ionChange)="this.onChangeAccesibility($event)"
                   allow-empty-selection="true">
                   <ion-item *ngFor="let item of this.Accesibilities">
-                    <ion-label>{{item.name}}</ion-label>
+                    <ion-label color="primary">{{item.name}}</ion-label>
                     <ion-radio slot="start" [value]="item.id"></ion-radio>
                   </ion-item>
                 </ion-radio-group>
