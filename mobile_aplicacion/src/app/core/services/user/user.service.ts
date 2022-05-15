@@ -43,7 +43,14 @@ export class UserService {
 
   public setUser(data: any) {
     localStorage.setItem(USER, JSON.stringify(data));
-    this.user.next(data.user);
+
+    try {
+      let tempUser = JSON.parse(localStorage.getItem(USER));
+      this.jwtHelper.decodeToken(tempUser.access_token);
+      this.user.next(tempUser);
+    } catch (error) {
+
+    } 
   }
 
   public getUserId() {
