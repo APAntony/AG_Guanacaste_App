@@ -1,29 +1,44 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button [routerLink]="['/']"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Edición de usuario</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-toolbar></app-toolbar>
 
-<ion-content>
+<ion-content scrollEvents="true">
+  <app-back-button Url="/dashboard" size="small">
+    Volver
+  </app-back-button>
+
   <form [formGroup]="updateForm" (submit)="this.onSubmit(updateForm.value)">
-    <ion-item lines="full">
-      <ion-label color="light" position="stacked">Nombre</ion-label>
-      <input placeholder="{{user.name}}" formControlName="name" type="text">
-    </ion-item>
-    <ion-item lines="full">
-      <ion-label color="light" position="stacked">Correo electrónico</ion-label>
-      <input placeholder="{{user.email}}" formControlName="email" type="text"/>
-    </ion-item>
-    <ion-item lines="full">
-      <ion-label color="light" position="stacked">Nueva contraseña</ion-label>
-      <input placeholder="Nueva Contraseña" formControlName="password" type="password"/>
-    </ion-item>
+
     <ion-row>
       <ion-col>
-        <ion-button type="submit" color="danger" expand="block">Editar</ion-button>
+        <ion-item lines="full">
+          <ion-label position="stacked">Nombre</ion-label>
+          <ion-input placeholder="{{this.User.name}}" formControlName="name" type="text"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item lines="full">
+          <ion-label position="stacked">Correo electrónico</ion-label>
+          <ion-input placeholder="{{this.User.email}}" formControlName="email" type="text"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item lines="full">
+          <ion-label position="stacked">Nueva o vieja contraseña<strong style="color: red;">*</strong></ion-label>
+          <ion-input placeholder="Contraseña" formControlName="password" type="password"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    
+    <ion-row>
+      <ion-col>
+        <ion-button class="btn" type="submit" expand="block">
+          Editar
+        </ion-button>
       </ion-col>
     </ion-row>
   </form>
