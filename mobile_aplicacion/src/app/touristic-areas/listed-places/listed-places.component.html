@@ -29,7 +29,7 @@
                 </ion-list-header>
 
                 <ion-item lines="none" *ngFor="let type of this.Types" >
-                  <ion-label> {{ type.name }}</ion-label>
+                  <ion-label color="primary"> {{ type.name }}</ion-label>
                   <ion-radio slot="start" [value]="type.id"></ion-radio>
                 </ion-item>
               </ion-radio-group>
