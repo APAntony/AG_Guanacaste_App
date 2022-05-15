@@ -37,11 +37,11 @@ export class PlaceDetailComponent implements OnInit {
     this._comment = text;
   }
 
-  private _showComments:boolean;
-  public get ShowComments() : boolean {
+  private _showComments: boolean;
+  public get ShowComments(): boolean {
     return this._showComments;
   }
-  
+
 
   private _page: string;
 
@@ -85,7 +85,7 @@ export class PlaceDetailComponent implements OnInit {
       }
     });
 
-    this.userService.getSessionState().subscribe((data:boolean)=>{
+    this.userService.getSessionState().subscribe((data: boolean) => {
       this._showComments = data;
     });
   }
@@ -105,5 +105,15 @@ export class PlaceDetailComponent implements OnInit {
     }).catch(err => {
 
     })
+  }
+
+  public searchNear() {
+    this.router.navigate(['activities'], {
+      state: {
+        url: `/place-detail/${this._place.id}`,
+        name: this._place.name,
+        geom: this._place.geom
+      }
+    });
   }
 }

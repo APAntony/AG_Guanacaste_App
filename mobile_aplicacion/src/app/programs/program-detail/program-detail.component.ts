@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoaderService } from '@core/services';
 import { UserService } from '@core/services/user/user.service';
 import { CommentService } from '../services/comment.service';
@@ -47,6 +47,7 @@ export class ProgramDetailComponent implements OnInit {
 
   constructor(
     private user: UserService,
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     private commentService: CommentService,
     private programsService: ProgramsService,
@@ -101,5 +102,15 @@ export class ProgramDetailComponent implements OnInit {
     }).catch(err => {
 
     })
+  }
+
+  public searchNear() {
+    this.router.navigate(['activities'], {
+      state: {
+        url: `/program-detail/${this._program.id}`,
+        name: this._program.name,
+        geom: this._program.geom
+      }
+    });
   }
 }
