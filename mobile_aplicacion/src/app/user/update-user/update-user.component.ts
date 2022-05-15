@@ -13,7 +13,11 @@ import { UsersService } from '../services/user/users.service';
 export class UpdateUserComponent implements OnInit {
 
   public updateForm: FormGroup;
-  public user: any;
+  
+  public _user: any;
+  public get User(): any {
+    return this._user
+  }
 
   constructor(
     public formBuilder: FormBuilder,
@@ -29,10 +33,12 @@ export class UpdateUserComponent implements OnInit {
     })
 
     this.myUser.User.subscribe(usuario =>{
-      this.user = usuario;
+      if (usuario != null) {
+        this._user = usuario.user;
+      }
     })
 
-    //this.user = {"name":"Antony", "email":"tony@gmail.com"}
+    console.log(this._user)
   }
 
   ngOnInit() {}
@@ -40,10 +46,10 @@ export class UpdateUserComponent implements OnInit {
   onSubmit(data) {
     data = this.checkData(data);
     if (data.password !== "") {
-      this.usersService.update(this.user.id, data).subscribe(result => {
+      this.usersService.update(this._user.id, data).subscribe(result => {
         if (result.success) {
           this.presentToast('Usuario editado con exito!');
-          this.router.navigate(['/main-menu'])
+          this.router.navigate(['/dashboard'])
         } else {
           this.presentToast(result.error.message);
         }
@@ -55,9 +61,9 @@ export class UpdateUserComponent implements OnInit {
 
   checkData(data) {
     if (data.name === "") {
-      data.name = this.user.name;
+      data.name = this._user.name;
     } if (data.email === "") {
-      data.email = this.user.email;
+      data.email = this._user.email;
     }
 
     return data;
