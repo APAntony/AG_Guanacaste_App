@@ -11,7 +11,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "run-android": "ionic capacitor run android",
-    "build-android": "ionic capacitor build android",
+    "build-android": "ionic capacitor build android --prod",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run"
   },
