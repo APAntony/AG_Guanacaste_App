@@ -3,7 +3,6 @@ import { RouterModule } from "@angular/router";
 import { IonicModule } from "@ionic/angular";
 import {
   BackButtonComponent,
-  HomeButtonComponent,
   ToolbarComponent
 } from './components';
 import { ImagePipe } from "./pipes";
@@ -12,13 +11,11 @@ import { ImagePipe } from "./pipes";
 @NgModule({
   declarations: [
     ToolbarComponent,
-    HomeButtonComponent,
     BackButtonComponent,
     ImagePipe,
   ],
   exports: [
     ToolbarComponent,
-    HomeButtonComponent,
     BackButtonComponent,
     ImagePipe,
   ],

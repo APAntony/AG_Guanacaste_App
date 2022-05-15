@@ -37,6 +37,11 @@ export class PlaceDetailComponent implements OnInit {
     this._comment = text;
   }
 
+  private _showComments:boolean;
+  public get ShowComments() : boolean {
+    return this._showComments;
+  }
+  
 
   private _page: string;
 
@@ -47,7 +52,7 @@ export class PlaceDetailComponent implements OnInit {
     private user: UserService,
     private activatedroute: ActivatedRoute,
     private commentService: CommentService,
-    private toastController: ToastController,
+    private userService: UserService,
     private touristicAreaService: TouristicAreasService,
     private loaderService: LoaderService
   ) {
@@ -79,10 +84,13 @@ export class PlaceDetailComponent implements OnInit {
         this._comments = result.data;
       }
     });
+
+    this.userService.getSessionState().subscribe((data:boolean)=>{
+      this._showComments = data;
+    });
   }
 
   public send() {
-    console.log(this._comment);
     this.commentService.create(this._id, {
       comment: this._comment,
       id_user: this.user.getUserId()

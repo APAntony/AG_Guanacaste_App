@@ -35,6 +35,12 @@ export class ProgramDetailComponent implements OnInit {
     this._comment = text;
   }
 
+  
+  private _showComments:boolean;
+  public get ShowComments() : boolean {
+    return this._showComments;
+  }
+
   private _page: string;
 
   private _id: string;
@@ -44,6 +50,7 @@ export class ProgramDetailComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private commentService: CommentService,
     private programsService: ProgramsService,
+    private userService: UserService,
     private loaderService: LoaderService
   ) {
     this._id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -65,6 +72,10 @@ export class ProgramDetailComponent implements OnInit {
 
     });
 
+    this.userService.getSessionState().subscribe((data:boolean)=>{
+      this._showComments = data;
+    });
+    
     this.commentService.list(this._id, {
       page: this._page,
       size: 10
@@ -76,7 +87,6 @@ export class ProgramDetailComponent implements OnInit {
   }
 
   public send() {
-    console.log(this._comment);
     this.commentService.create(this._id, {
       comment: this._comment,
       id_user: this.user.getUserId()

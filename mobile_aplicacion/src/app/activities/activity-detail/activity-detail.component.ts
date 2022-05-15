@@ -35,6 +35,11 @@ export class ActivityDetailComponent implements OnInit {
   public set Comment(text: string) {
     this._comment = text;
   }
+  
+  private _showComments:boolean;
+  public get ShowComments() : boolean {
+    return this._showComments;
+  }
 
 
   private _page: string;
@@ -46,7 +51,7 @@ export class ActivityDetailComponent implements OnInit {
     private user: UserService,
     private activatedroute: ActivatedRoute,
     private commentService: CommentService,
-    private toastController: ToastController,
+    private userService: UserService,
     private activityService: ActivitiesService,
     private loaderService: LoaderService
   ) {
@@ -69,6 +74,9 @@ export class ActivityDetailComponent implements OnInit {
 
     });
 
+    this.userService.getSessionState().subscribe((data:boolean)=>{
+      this._showComments = data;
+    });
 
     this.commentService.list(this._id, {
       page: this._page,
@@ -81,7 +89,6 @@ export class ActivityDetailComponent implements OnInit {
   }
 
   public send() {
-    console.log(this._comment);
     this.commentService.create(this._id, {
       comment: this._comment,
       id_user: this.user.getUserId()

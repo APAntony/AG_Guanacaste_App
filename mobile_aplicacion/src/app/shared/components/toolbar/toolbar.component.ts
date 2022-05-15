@@ -25,59 +25,45 @@ export class ToolbarComponent implements OnInit {
 
 
   async presentActionSheet() {
+    const buttons = [];
+
+    if (!this.userService.isLogin()) {
+      buttons.push({
+        text: 'Login',
+        icon: 'person-circle',
+        id: 'login-button',
+        handler: () => this.router.navigate(['/login'])
+      });
+    }
+
+    if (this.userService.isLogin()) {
+      buttons.push({
+        text: 'Cerrar sesión',
+        icon: 'log-out',
+        id: 'log-out-button',
+        handler: () => this.userService.logout()
+      }, {
+        text: 'Editar usuario',
+        icon: 'pencil',
+        id: 'edit-button',
+        handler: () => this.router.navigate(['/update-user'])
+      });
+    }
+
+    buttons.push({
+      text: 'Cancel',
+      icon: 'close',
+      role: 'cancel',
+      id: 'close',
+      handler: () => null
+    })
+
     const actionSheet = await this.actionSheetController.create({
       header: 'Opciones de usuario',
       cssClass: 'my-custom-class',
-      buttons: [
-        {
-          text: 'Login',
-          icon: 'person-circle',
-          id: 'login-button',
-          handler: () => {
-            if (this.userService.isLogin()) {
-              this.presentToast('Ya hay un usuario iniciado');
-            } else {
-              this.router.navigate(['/login']);
-            }
-
-            //console.log('Login clickeado');
-          }
-        }, {
-          text: 'Cerrar sesión',
-          icon: 'log-out',
-          id: 'log-out-button',
-          handler: () => {
-            if (this.userService.isLogin() === false) {
-              this.presentToast('No hay un usuario iniciado');
-            } else {
-              this.userService.logout();
-            }
-          }
-        }, {
-          text: 'Editar usuario',
-          icon: 'pencil',
-          id: 'edit-button',
-          handler: () => {
-            if (this.userService.isLogin() === false) {
-              this.presentToast('No hay un usuario iniciado');
-            } else {
-              this.router.navigate(['/update-user']);
-            }
-          }
-        }, {
-          text: 'Cancel',
-          icon: 'close',
-          role: 'cancel',
-          handler: () => {
-            //console.log("Dato: " + this.dato.name)
-            //console.log('Cancelar clickeado');
-          }
-        }]
+      buttons: buttons
     });
     await actionSheet.present();
-
-    const { role, data } = await actionSheet.onDidDismiss();
-    console.log('onDidDismiss resolved with role and data', role, data);
   }
 
   async presentToast(msg: string) {

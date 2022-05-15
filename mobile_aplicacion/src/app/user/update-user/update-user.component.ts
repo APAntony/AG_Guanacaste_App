@@ -38,8 +38,7 @@ export class UpdateUserComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit(data) {
-    data = this.checkData(data)
-    console.log(data)
+    data = this.checkData(data);
     if (data.password !== "") {
       this.usersService.update(this.user.id, data).subscribe(result => {
         if (result.success) {

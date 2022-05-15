@@ -31,7 +31,6 @@ describe('Touristic Area Module', () => {
     cy.wait('@list').then((interception) => {
       expect(interception.response.statusCode).eql(200);
       count = interception.response.body.metadata.count;
-      console.log(count);
       cy.get('ion-list').get('ion-item').should('have.length', count);
     });
   });

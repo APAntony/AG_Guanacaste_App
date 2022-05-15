@@ -74,7 +74,6 @@ export class ListedProgramsComponent implements OnInit {
 
   public onChangeType(event) {
     this._id_program_type = event.detail.value;
-    console.log(this._id_program_type)
     this.getPrograms(0, 10, this._filter, this._id_program_type);
   }
 

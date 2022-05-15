@@ -66,7 +66,7 @@
       </ion-col>
     </ion-row>
 
-    <ion-row class="ion-align-items-center">
+    <ion-row class="ion-align-items-center" *ngIf="ShowComments">
       <ion-col size="10">
         <ion-textarea [(ngModel)]="this.Comment" class="comment-input rounded" color="primary" type="text" placeholder="Comentario...">
 
@@ -104,7 +104,5 @@
       </ion-col>
     </ion-row>
 
-
   </ion-grid>
-  <app-home-button></app-home-button>
 </ion-content>
