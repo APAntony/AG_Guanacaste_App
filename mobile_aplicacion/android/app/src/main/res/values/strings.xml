@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">mobile_aplicacion</string>
-    <string name="title_activity_main">mobile_aplicacion</string>
+    <string name="app_name">acGuanacaste</string>
+    <string name="title_activity_main">acGuanacaste</string>
     <string name="package_name">io.ionic.starter</string>
     <string name="custom_url_scheme">io.ionic.starter</string>
 </resources>
