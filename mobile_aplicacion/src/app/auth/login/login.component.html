@@ -1,45 +1,59 @@
 <app-toolbar></app-toolbar>
 
-<ion-content scrollEvents="true">
-  <app-back-button Url="/dashboard" size="small">
-    Volver
-  </app-back-button>
-
-  <form [formGroup]="userForm" (submit)="this.onSubmit(userForm.value)">
+<ion-content fullscreen>
+  <ion-grid>
     <ion-row>
-      <ion-col>
-        <h1>¡Bienvenido!</h1>
+      <ion-col size="12">
+        <app-back-button Url="/dashboard">
+          Volver
+        </app-back-button>
       </ion-col>
     </ion-row>
+    <form [formGroup]="userForm" (submit)="this.onSubmit(userForm.value)">
+      <ion-row>
+        <ion-col>
+          <ion-text color="primary" class="ion-text-center">
+            <h1> <strong>¡Bienvenido!</strong></h1>
+          </ion-text>
+        </ion-col>
+      </ion-row>
 
-    <ion-row>
-      <ion-col>
-        <ion-item lines="full">
+      <ion-row>
+        <ion-col size="12">
+
           <ion-label position="floating">
             Correo<strong style="color: red;">*</strong>
           </ion-label>
           <ion-input formControlName="email" type="email"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
 
-    <ion-row>
-      <ion-col>
-        <ion-item lines="full">
-          <ion-label position="floating">
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12">
+          <ion-label position="fixed">
             Contraseña<strong style="color: red;">*</strong>
           </ion-label>
           <ion-input formControlName="password" type="password"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
+        </ion-col>
+      </ion-row>
 
-    <ion-row>
-      <ion-col>
-        <ion-button class="btn" [disabled]="this.userForm.invalid" type="submit" expand="block">Iniciar sesión</ion-button>
-        <a [routerLink]="['/register']" class="small-text">¿Aún no tienes cuenta?</a>
-      </ion-col>
-    </ion-row>
-  </form>
 
+      <ion-row>
+        <ion-col size="12">
+          <ion-button class="btn" [disabled]="this.userForm.invalid" type="submit" expand="block">Iniciar sesión
+          </ion-button>
+
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="6">
+          <ion-text class="ion-text-center" color="primary mt-1">
+            <a [routerLink]="['/register']" class="small-text ">¿Aún no tienes cuenta?</a>
+          </ion-text>
+        </ion-col>
+      </ion-row>
+
+    </form>
+  </ion-grid>
 </ion-content>

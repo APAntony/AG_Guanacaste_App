@@ -1,44 +1,8 @@
-ion-input {
-  padding-right: 8px;
-  border-bottom: none!important;
+ion-input{
+  --background:#FFEAD7;
+  --color:#f2ab6d9f;
 }
 
-ion-title {
-  color: #f8caa0;
-}
-
-h1 {
-  text-align:center;
-  color: #387b5c;
-  font-weight: bold;
-}
-
-ion-label {
-  color: #d98e4cb0;
-}
-
-ion-item {
-  border-color: #fffcf8;
-}
-
-.item-highlight, .item-inner-highlight {
-  border-color: #fffcf8;
-}
-
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #fce0c7;
-  opacity: 1; /* Firefox */
-}
-
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color: #fce0c7;
-}
-
-::-ms-input-placeholder { /* Microsoft Edge */
-  color: #fce0c7;
-}
-
-.btn {
-  --background: #387b5c;
-  --border-radius: 10px;
+.mt-1{
+  margin-top: 0.3rem;
 }

@@ -21,4 +21,12 @@ export class UsersService {
   public find(id:number): Observable<any> {
     return this.http.get(`${URL}/${id}`);
   }
+
+  public login(body: any): Observable<any> {
+    return this.http.post(`${environment.backend}/auth/login`, body);
+  }
+
+  public register(body: any): Observable<any> {
+    return this.http.post(`${environment.backend}/auth/register`, body);
+  }
 }

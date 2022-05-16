@@ -13,7 +13,7 @@ import { UsersService } from '../services/user/users.service';
 export class UpdateUserComponent implements OnInit {
 
   public updateForm: FormGroup;
-  
+
   public _user: any;
   public get User(): any {
     return this._user
@@ -32,41 +32,26 @@ export class UpdateUserComponent implements OnInit {
       password: ['', [Validators.minLength(8)]]
     })
 
-    this.myUser.User.subscribe(usuario =>{
+    this.myUser.User.subscribe(usuario => {
       if (usuario != null) {
         this._user = usuario.user;
+        this.updateForm.controls.name.setValue(this._user.name);
+        this.updateForm.controls.email.setValue(this._user.email);
       }
     })
-
-    console.log(this._user)
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onSubmit(data) {
-    data = this.checkData(data);
-    if (data.password !== "") {
-      this.usersService.update(this._user.user.id, data).subscribe(result => {
-        if (result.success) {
-          this.presentToast('Usuario editado con exito!');
-          this.router.navigate(['/dashboard'])
-        } else {
-          this.presentToast(result.error.message);
-        }
-      })
-    } else {
-      this.presentToast('Tiene que ingresar su contraseña o una nueva');
-    }
-  }
-
-  checkData(data) {
-    if (data.name === "") {
-      data.name = this._user.name;
-    } if (data.email === "") {
-      data.email = this._user.email;
-    }
-
-    return data;
+    this.usersService.update(this._user.id, data).subscribe(result => {
+      if (result.success) {
+        this.presentToast('Usuario editado con exito!');
+        this.router.navigate(['/dashboard'])
+      } else {
+        this.presentToast(result.error.message);
+      }
+    })
   }
 
   async presentToast(msg: string) {

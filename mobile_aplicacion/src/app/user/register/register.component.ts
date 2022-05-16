@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserService } from '@core/services/user/user.service';
 import { ToastController } from '@ionic/angular';
 import { UsersService } from '../services/user/users.service';
 
@@ -16,6 +17,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     public formBuilder: FormBuilder,
     private router: Router,
+    private authUser: UserService,
     private usersService: UsersService,
     private toastController: ToastController
   ) {
@@ -26,15 +28,19 @@ export class RegisterComponent implements OnInit {
     })
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onSubmit(data) {
     data.id_rol = 1;
 
-    this.usersService.create(data).subscribe(result => {
+    this.usersService.register(data).subscribe(result => {
       if (result.success) {
-        this.presentToast('Usuario creado con exito!');
-        this.router.navigate(['/']);
+        this.usersService.login({ password: data.password, email: data.email }).toPromise().then(response => {
+          this.presentToast('Usuario creado con exito!');
+          this.authUser.setUser(response.data);
+          this.router.navigate(['/dashboard']);
+        })
+
       } else {
         this.presentToast(result.error.message);
       }

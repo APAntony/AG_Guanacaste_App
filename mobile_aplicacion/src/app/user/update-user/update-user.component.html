@@ -1,45 +1,59 @@
 <app-toolbar></app-toolbar>
 
-<ion-content scrollEvents="true">
-  <app-back-button Url="/dashboard" size="small">
-    Volver
-  </app-back-button>
-
-  <form [formGroup]="updateForm" (submit)="this.onSubmit(updateForm.value)">
-
+<ion-content fullscreen>
+  <ion-grid>
     <ion-row>
-      <ion-col>
-        <ion-item lines="full">
-          <ion-label position="stacked">Nombre</ion-label>
-          <ion-input placeholder="{{this.User.name}}" formControlName="name" type="text"></ion-input>
-        </ion-item>
+      <ion-col size="12">
+        <app-back-button Url="/login">
+          Volver
+        </app-back-button>
       </ion-col>
     </ion-row>
+    <form [formGroup]="updateForm" (submit)="this.onSubmit(updateForm.value)">
+      <ion-row>
+        <ion-col>
+          <ion-text color="primary" class="ion-text-center">
+            <h1> <strong>Perfil</strong></h1>
+          </ion-text>
+        </ion-col>
+      </ion-row>
 
-    <ion-row>
-      <ion-col>
-        <ion-item lines="full">
-          <ion-label position="stacked">Correo electrónico</ion-label>
-          <ion-input placeholder="{{this.User.email}}" formControlName="email" type="text"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
+      <ion-row>
+        <ion-col size="12">
 
-    <ion-row>
-      <ion-col>
-        <ion-item lines="full">
-          <ion-label position="stacked">Nueva o vieja contraseña<strong style="color: red;">*</strong></ion-label>
+          <ion-label position="floating">
+            Nombre<strong style="color: red;">*</strong>
+          </ion-label>
+          <ion-input formControlName="name" type="text"></ion-input>
+
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12">
+          <ion-label position="fixed">
+            Correo<strong style="color: red;">*</strong>
+          </ion-label>
+          <ion-input formControlName="email" type="text"></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12">
+          <ion-label position="fixed">
+            Actualizar Contraseña<strong style="color: red;">*</strong>
+          </ion-label>
           <ion-input placeholder="Contraseña" formControlName="password" type="password"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    
-    <ion-row>
-      <ion-col>
-        <ion-button class="btn" type="submit" expand="block">
-          Editar
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </form>
+        </ion-col>
+      </ion-row>  
+
+      <ion-row>
+        <ion-col size="12">
+          <ion-button class="btn" [disabled]="this.updateForm.invalid" type="submit" expand="block">Iniciar sesión
+          </ion-button>
+
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
 </ion-content>

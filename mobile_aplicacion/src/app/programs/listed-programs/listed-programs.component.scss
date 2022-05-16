@@ -4,6 +4,9 @@ ion-searchbar{
   --border-radius:40px;
   padding: 0;
 }
+ion-button.filter ion-icon{
+  font-size: 1.6rem;
+}
 
 ion-button.filter {
   --box-shadow:none;
